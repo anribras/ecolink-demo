@@ -1,0 +1,9 @@
+#cscope and tags
+*.out
+*.files
+tags
+#object files
+*.o
+/obj
+/resource
+ecolink.bin
