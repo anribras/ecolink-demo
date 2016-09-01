@@ -1,0 +1,16 @@
+./mainwindow.h
+./debug.cpp
+./ringbuffer.h
+./demo.h
+./ui_mainwindow.h
+./demo.cpp
+./stream.h
+./sdk.h
+./jpegdecode.h
+./jpegdecode.cpp
+./mainwindow.cpp
+./main.cpp
+./debug.h
+./stream.cpp
+./ringbuffer.cpp
+./moc_mainwindow.cpp

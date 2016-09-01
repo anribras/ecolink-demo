@@ -1,0 +1,324 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AR	Makefile	/^AR            = $(OE_QMAKE_AR) cqs$/;"	m	language:Make
+AndroidAdbNotOpened	sdk.h	/^	AndroidAdbNotOpened,$/;"	e	language:C++	enum:__anon2
+AndroidAppBackground	sdk.h	/^	AndroidAppBackground,$/;"	e	language:C++	enum:__anon2
+AndroidAppLunchFail	sdk.h	/^	AndroidAppLunchFail,$/;"	e	language:C++	enum:__anon2
+AndroidConnected	sdk.h	/^	AndroidConnected,$/;"	e	language:C++	enum:__anon2
+AndroidDisconnected	sdk.h	/^	AndroidDisconnected = 10,$/;"	e	language:C++	enum:__anon2
+AndroidOnline	sdk.h	/^	AndroidOnline, $/;"	e	language:C++	enum:__anon2
+AndroidPlugoutWhenInstalling	sdk.h	/^	AndroidPlugoutWhenInstalling = 3,$/;"	e	language:C++	enum:__anon2
+AndroidScreenOff	sdk.h	/^	AndroidScreenOff,$/;"	e	language:C++	enum:__anon2
+AndroidScreenOn	sdk.h	/^	AndroidScreenOn = 6,$/;"	e	language:C++	enum:__anon2
+AppForeground	sdk.h	/^	AppForeground,$/;"	e	language:C++	enum:__anon2
+BUFFFER_SIZE	ringbuffer.h	18;"	d	language:C++
+CC	Makefile	/^CC            = $(OE_QMAKE_CC)$/;"	m	language:Make
+CFLAGS	Makefile	/^CFLAGS        = -pipe $(OE_QMAKE_CFLAGS) -O2 -pthread -Wall -W -D_REENTRANT -fPIC $(DEFINES)$/;"	m	language:Make
+CHK_DIR_EXISTS	Makefile	/^CHK_DIR_EXISTS= test -d$/;"	m	language:Make
+CJpegDecode	jpegdecode.cpp	/^CJpegDecode::CJpegDecode()$/;"	f	language:C++	class:CJpegDecode	signature:()
+CJpegDecode	jpegdecode.h	/^    CJpegDecode();$/;"	p	language:C++	class:CJpegDecode	signature:()
+CJpegDecode	jpegdecode.h	/^class CJpegDecode$/;"	c	language:C++
+COMPRESS	Makefile	/^COMPRESS      = gzip -9f$/;"	m	language:Make
+COPY	Makefile	/^COPY          = cp -f$/;"	m	language:Make
+COPY_DIR	Makefile	/^COPY_DIR      = cp -f -R$/;"	m	language:Make
+COPY_FILE	Makefile	/^COPY_FILE     = cp -f$/;"	m	language:Make
+CRingBuf	ringbuffer.cpp	/^CRingBuf::CRingBuf()$/;"	f	language:C++	class:CRingBuf	signature:()
+CRingBuf	ringbuffer.h	/^    CRingBuf();$/;"	p	language:C++	class:CRingBuf	signature:()
+CRingBuf	ringbuffer.h	/^class CRingBuf$/;"	c	language:C++
+CXX	Makefile	/^CXX           = $(OE_QMAKE_CXX)$/;"	m	language:Make
+CXXFLAGS	Makefile	/^CXXFLAGS      = -pipe $(OE_QMAKE_CXXFLAGS) -O2 -pthread -Wall -W -D_REENTRANT -fPIC $(DEFINES)$/;"	m	language:Make
+DBG	debug.h	65;"	d	language:C++
+DEFINES	Makefile	/^DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB$/;"	m	language:Make
+DEL_DIR	Makefile	/^DEL_DIR       = rmdir$/;"	m	language:Make
+DEL_FILE	Makefile	/^DEL_FILE      = rm -f$/;"	m	language:Make
+DESTDIR	Makefile	/^DESTDIR       = #avoid trailing-slash linebreak$/;"	m	language:Make
+DIST	Makefile	/^DIST          = \/opt\/yocto\/sysroot\/usr\/lib\/qt5\/mkspecs\/features\/spec_pre.prf \\$/;"	m	language:Make
+DISTDIR	Makefile	/^DISTDIR = \/home\/delphi\/targetfs\/home\/root\/ecolink-ui\/ecolink-ui\/.tmp\/ecolink.bin1.0.0$/;"	m	language:Make
+DISTNAME	Makefile	/^DISTNAME      = ecolink.bin1.0.0$/;"	m	language:Make
+DUMP_L	debug.h	81;"	d	language:C++
+DeviceOffline	sdk.h	/^	DeviceOffline = 0,$/;"	e	language:C++	enum:__anon2
+ECOLINK_CFG	sdk.h	/^} ECOLINK_CFG;$/;"	t	language:C++	typeref:struct:__anon4
+ECOLINK_MODE	sdk.h	/^}ECOLINK_MODE;$/;"	t	language:C++	typeref:enum:__anon3
+ECOLINK_ST	sdk.h	/^}ECOLINK_ST;$/;"	t	language:C++	typeref:enum:__anon2
+ENABLE_TRACING	debug.h	63;"	d	language:C++
+FULL_PATH	mainwindow.h	14;"	d	language:C++
+HAS_FRAME_HEAD	stream.cpp	/^	HAS_FRAME_HEAD$/;"	e	language:C++	enum:STATUS	file:
+HAS_START_CODE_f	stream.cpp	/^	HAS_START_CODE_f,$/;"	e	language:C++	enum:STATUS	file:
+HAS_START_CODE_s	stream.cpp	/^	HAS_START_CODE_s,$/;"	e	language:C++	enum:STATUS	file:
+IN	sdk.h	12;"	d	language:C++
+INCPATH	Makefile	/^INCPATH       = -I. -isystem \/opt\/yocto\/sysroot\/usr\/include\/gstreamer-1.0 -isystem \/opt\/yocto\/sysroot\/usr\/include\/glib-2.0 -I\/opt\/yocto\/sysroot\/usr\/lib\/glib-2.0\/include -isystem \/opt\/yocto\/sysroot\/usr\/include\/qt5 -isystem \/opt\/yocto\/sysroot\/usr\/include\/qt5\/QtWidgets -isystem \/opt\/yocto\/sysroot\/usr\/include\/qt5\/QtGui -isystem \/opt\/yocto\/sysroot\/usr\/include\/qt5\/QtCore -I. -I. -I\/opt\/yocto\/sysroot\/usr\/lib\/qt5\/mkspecs\/linux-oe-g++$/;"	m	language:Make
+INITIALIZED	stream.h	/^	INITIALIZED,$/;"	e	language:C++	enum:__anon1
+INSTALL_DIR	Makefile	/^INSTALL_DIR   = cp -f -R$/;"	m	language:Make
+INSTALL_FILE	Makefile	/^INSTALL_FILE  = install -m 644 -p$/;"	m	language:Make
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = install -m 755 -p$/;"	m	language:Make
+INTEGRATE_DEBUG	debug.h	24;"	d	language:C++
+IosAppBackground	sdk.h	/^	IosAppBackground = 13,$/;"	e	language:C++	enum:__anon2
+IosAppNotReady	sdk.h	/^	IosAppNotReady,$/;"	e	language:C++	enum:__anon2
+IosConnected	sdk.h	/^	IosConnected,$/;"	e	language:C++	enum:__anon2
+IosDisconnected	sdk.h	/^	IosDisconnected = 16,$/;"	e	language:C++	enum:__anon2
+IosPlugIn	sdk.h	/^	IosPlugIn,$/;"	e	language:C++	enum:__anon2
+IosPlugOut	sdk.h	/^	IosPlugOut,$/;"	e	language:C++	enum:__anon2
+JPEG	sdk.h	/^	JPEG = 0,$/;"	e	language:C++	enum:__anon3
+LFLAGS	Makefile	/^LFLAGS        = $(OE_QMAKE_LDFLAGS) -Wl,-O1$/;"	m	language:Make
+LIBS	Makefile	/^LIBS          = $(SUBLIBS) -L. -lplist -lecolink -L\/usr\/local\/libjpeg-turbo-1.4.2\/freescale\/lib -ljpeg -lcrypto -lgstapp-1.0 -lgmodule-2.0 -lgthread-2.0 -lffi -lgstpbutils-1.0 -lgstvideo-1.0 -lgstbase-1.0 -lgstaudio-1.0 -lgsttag-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lpthread $/;"	m	language:Make
+LINK	Makefile	/^LINK          = $(OE_QMAKE_LINK)$/;"	m	language:Make
+LOG_FILE_PATH	debug.h	31;"	d	language:C++
+MAINWINDOW_H	mainwindow.h	2;"	d	language:C++
+MAKEFILE	Makefile	/^MAKEFILE      = Makefile$/;"	m	language:Make
+MAX_CHECK_TIME	debug.h	32;"	d	language:C++
+MAX_TAGS	debug.cpp	13;"	d	language:C++	file:
+MKDIR	Makefile	/^MKDIR         = mkdir -p$/;"	m	language:Make
+MORE_DATA	stream.cpp	/^	MORE_DATA,$/;"	e	language:C++	enum:STATUS	file:
+MOVE	Makefile	/^MOVE          = mv -f$/;"	m	language:Make
+MainWindow	mainwindow.cpp	/^MainWindow::MainWindow(QWidget *parent) :$/;"	f	language:C++	class:MainWindow	signature:(QWidget *parent)
+MainWindow	mainwindow.h	/^    explicit MainWindow(QWidget *parent = 0);$/;"	p	language:C++	class:MainWindow	signature:(QWidget *parent = 0)
+MainWindow	mainwindow.h	/^class MainWindow : public QMainWindow$/;"	c	language:C++
+MainWindow	ui_mainwindow.h	/^    class MainWindow: public Ui_MainWindow {};$/;"	c	language:C++	namespace:Ui
+NULL	sdk.h	14;"	d	language:C++
+NULLSTATE	stream.h	/^	NULLSTATE = 0,$/;"	e	language:C++	enum:__anon1
+OBJECTS	Makefile	/^OBJECTS       = main.o \\$/;"	m	language:Make
+OBJECTS_DIR	Makefile	/^OBJECTS_DIR   = .\/$/;"	m	language:Make
+OUT	sdk.h	13;"	d	language:C++
+PAUSED	stream.h	/^	PAUSED,$/;"	e	language:C++	enum:__anon1
+PLAYING	stream.h	/^	PLAYING,$/;"	e	language:C++	enum:__anon1
+PLAYING_STATE	stream.h	/^} PLAYING_STATE;$/;"	t	language:C++	typeref:enum:__anon1
+QMAKE	Makefile	/^QMAKE         = \/opt\/yocto\/native-sysroot\/usr\/bin\/qt5\/qmake$/;"	m	language:Make
+QMAKE_TARGET	Makefile	/^QMAKE_TARGET  = ecolink.bin$/;"	m	language:Make
+QT_MOC_LITERAL	moc_mainwindow.cpp	25;"	d	language:C++	file:
+QT_MOC_LITERAL	moc_mainwindow.cpp	40;"	d	language:C++	file:
+RANLIB	Makefile	/^RANLIB        = $/;"	m	language:Make
+RELEASED	stream.h	/^	RELEASED $/;"	e	language:C++	enum:__anon1
+RING_DEPTH	ringbuffer.h	19;"	d	language:C++
+Reserved	sdk.h	/^	Reserved,$/;"	e	language:C++	enum:__anon2
+SED	Makefile	/^SED           = sed$/;"	m	language:Make
+SOURCES	Makefile	/^SOURCES       = main.cpp \\$/;"	m	language:Make
+STATUS	stream.cpp	/^typedef enum STATUS{$/;"	g	language:C++	file:
+STREAM	sdk.h	/^	STREAM,$/;"	e	language:C++	enum:__anon3
+STREAM_PLAY_H	stream.h	2;"	d	language:C++
+STRIP	Makefile	/^STRIP         = $(OE_QMAKE_STRIP)$/;"	m	language:Make
+SYMLINK	Makefile	/^SYMLINK       = ln -f -s$/;"	m	language:Make
+TAG	debug.h	/^} TAG;$/;"	t	language:C++	typeref:struct:__anon5
+TAR	Makefile	/^TAR           = tar -cf$/;"	m	language:Make
+TARGET	Makefile	/^TARGET        = ecolink.bin$/;"	m	language:Make
+TIME_AVERAGE	debug.h	122;"	d	language:C++
+TIME_AVERAGE	debug.h	147;"	d	language:C++
+TIME_CHECK	debug.h	113;"	d	language:C++
+TIME_CHECK	debug.h	145;"	d	language:C++
+TIME_DBG	debug.h	/^} TIME_DBG;$/;"	t	language:C++	typeref:struct:TIME_DEBUG_STRUCT
+TIME_DEBUG	debug.h	28;"	d	language:C++
+TIME_DEBUG_STRUCT	debug.h	/^typedef struct TIME_DEBUG_STRUCT {$/;"	s	language:C++
+TIME_DECLARE	debug.h	140;"	d	language:C++
+TIME_DECLARE	debug.h	94;"	d	language:C++
+TIME_IMPORT	debug.h	141;"	d	language:C++
+TIME_INIT	debug.h	142;"	d	language:C++
+TIME_INIT	debug.h	96;"	d	language:C++
+TIME_INSERT	debug.h	104;"	d	language:C++
+TIME_INSERT	debug.h	143;"	d	language:C++
+TIME_PRINT	debug.h	108;"	d	language:C++
+TIME_PRINT	debug.h	144;"	d	language:C++
+TIME_ROUND	debug.h	119;"	d	language:C++
+TIME_ROUND	debug.h	146;"	d	language:C++
+TRACE_DEBUG	debug.h	29;"	d	language:C++
+TRACE_GOGOGO	debug.h	62;"	d	language:C++
+UI_MAINWINDOW_H	ui_mainwindow.h	10;"	d	language:C++
+Ui	mainwindow.h	/^namespace Ui$/;"	n	language:C++
+Ui	ui_mainwindow.h	/^namespace Ui {$/;"	n	language:C++
+Ui_MainWindow	ui_mainwindow.h	/^class Ui_MainWindow$/;"	c	language:C++
+_JPEG_DECODE_C	jpegdecode.cpp	9;"	d	language:C++	file:
+_JPEG_DECODE_H	jpegdecode.h	9;"	d	language:C++
+_STREAM_PLAY_CPP	stream.cpp	2;"	d	language:C++	file:
+__DEBUG__H	debug.h	10;"	d	language:C++
+__DEMO_C	demo.cpp	9;"	d	language:C++	file:
+__DEMO_H	demo.h	9;"	d	language:C++
+__ECOLINK_SDK_H	sdk.h	9;"	d	language:C++
+__RING_BUFFER_C	ringbuffer.cpp	9;"	d	language:C++	file:
+__RING_BUF_H	ringbuffer.h	10;"	d	language:C++
+__ring_buffer_len	ringbuffer.cpp	/^unsigned char CRingBuf::__ring_buffer_len(const struct ring_buffer * ring_buf)$/;"	f	language:C++	class:CRingBuf	signature:(const struct ring_buffer * ring_buf)
+__ring_buffer_len	ringbuffer.h	/^    unsigned char __ring_buffer_len(const struct ring_buffer * ring_buf);$/;"	p	language:C++	class:CRingBuf	signature:(const struct ring_buffer * ring_buf)
+_check_list	debug.h	/^    unsigned int _check_list[MAX_CHECK_TIME][2];$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT
+_check_seq	debug.h	/^    unsigned int _check_seq;$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT
+_current_seq	debug.h	/^    unsigned int _current_seq;$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT
+_time_acc_val	debug.h	/^    unsigned long long _time_acc_val[MAX_CHECK_TIME];$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT
+_time_count	debug.h	/^    unsigned long long _time_count[MAX_CHECK_TIME];$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT
+a5a_t	debug.cpp	/^struct timeval a5a_t; 					$/;"	v	language:C++	typeref:struct:timeval
+avaluable_length_in_buffer	ringbuffer.h	/^    long avaluable_length_in_buffer[RING_DEPTH];$/;"	m	language:C++	struct:ring_buffer
+buf_ptr	ringbuffer.h	/^    struct ring_buffer* buf_ptr ;$/;"	m	language:C++	class:CRingBuf	typeref:struct:CRingBuf::ring_buffer
+buffer	ringbuffer.h	/^    char (*buffer)[BUFFFER_SIZE];$/;"	m	language:C++	struct:ring_buffer
+buffered_len	stream.cpp	/^static int buffered_len = 0;$/;"	v	language:C++	file:
+bus_callback	stream.cpp	/^static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data)$/;"	f	language:C++	file:	signature:(GstBus *bus, GstMessage *msg, gpointer data)
+centralWidget	ui_mainwindow.h	/^    QWidget *centralWidget;$/;"	m	language:C++	class:Ui_MainWindow
+check_point_in_list	debug.cpp	/^unsigned int check_point_in_list(unsigned int from, unsigned int to)$/;"	f	language:C++	signature:(unsigned int from, unsigned int to)
+check_point_in_list	debug.h	/^unsigned int check_point_in_list(unsigned int from, unsigned int to);$/;"	p	language:C++	signature:(unsigned int from, unsigned int to)
+cond	ringbuffer.h	/^    pthread_cond_t cond ;$/;"	m	language:C++	class:CRingBuf
+connect	demo.cpp	/^void connect()$/;"	f	language:C++	signature:()
+connect	demo.h	/^void connect();$/;"	p	language:C++	signature:()
+count	mainwindow.h	/^    unsigned int count;$/;"	m	language:C++	class:MainWindow
+cur_pos	mainwindow.h	/^    QPoint *cur_pos;$/;"	m	language:C++	class:MainWindow
+data	moc_mainwindow.cpp	/^    QByteArrayData data[4];$/;"	m	language:C++	struct:qt_meta_stringdata_MainWindow_t	file:
+data_gotten	demo.cpp	/^void data_gotten(int* mode ,const char* buffer, int* size)$/;"	f	language:C++	signature:(int* mode ,const char* buffer, int* size)
+data_gotten	demo.h	/^void data_gotten(int* mode ,const char* buffer, int* size);$/;"	p	language:C++	signature:(int* mode ,const char* buffer, int* size)
+dbg	debug.cpp	/^TIME_DBG dbg;$/;"	v	language:C++
+dbg_lock	debug.cpp	/^pthread_mutex_t dbg_lock = PTHREAD_MUTEX_INITIALIZER ;$/;"	v	language:C++
+decode_from_file	jpegdecode.cpp	/^int CJpegDecode::decode_from_file(const char* path)$/;"	f	language:C++	class:CJpegDecode	signature:(const char* path)
+decode_from_file	jpegdecode.h	/^    int decode_from_file(const char* path);$/;"	p	language:C++	class:CJpegDecode	signature:(const char* path)
+decode_from_mem	jpegdecode.cpp	/^int CJpegDecode::decode_from_mem(const char* mem_ptr, unsigned long size)$/;"	f	language:C++	class:CJpegDecode	signature:(const char* mem_ptr, unsigned long size)
+decode_from_mem	jpegdecode.h	/^    int decode_from_mem(const char* mem_ptr, unsigned long size);$/;"	p	language:C++	class:CJpegDecode	signature:(const char* mem_ptr, unsigned long size)
+decode_init	jpegdecode.cpp	/^int CJpegDecode::decode_init()$/;"	f	language:C++	class:CJpegDecode	signature:()
+decode_init	jpegdecode.h	/^    int decode_init();$/;"	p	language:C++	class:CJpegDecode	signature:()
+disable_link_transfer	sdk.h	/^int disable_link_transfer(); $/;"	p	language:C++	signature:()
+disable_touchevent	sdk.h	/^int disable_touchevent(); $/;"	p	language:C++	signature:()
+disconnect	demo.cpp	/^void disconnect()$/;"	f	language:C++	signature:()
+disconnect	demo.h	/^void disconnect();$/;"	p	language:C++	signature:()
+dump	debug.cpp	/^void dump(const char* buf, int len, int endian){$/;"	f	language:C++	signature:(const char* buf, int len, int endian)
+dump	debug.h	/^void dump(const char* buf, int len, int endian);$/;"	p	language:C++	signature:(const char* buf, int len, int endian)
+enable_link_transfer	sdk.h	/^int enable_link_transfer(); $/;"	p	language:C++	signature:()
+enable_touchevent	sdk.h	/^int enable_touchevent(); $/;"	p	language:C++	signature:()
+flag	debug.h	/^    int flag;$/;"	m	language:C++	struct:__anon5
+fp	stream.cpp	/^FILE* fp = NULL ;$/;"	v	language:C++
+get_link_status	sdk.h	/^int get_link_status();$/;"	p	language:C++	signature:()
+get_link_transfer_status	sdk.h	/^int get_link_transfer_status();$/;"	p	language:C++	signature:()
+get_mirror_status	mainwindow.h	/^	int get_mirror_status();$/;"	p	language:C++	class:MainWindow	signature:()
+get_steam_data_cb	stream.cpp	/^int get_steam_data_cb(char*data, int length)$/;"	f	language:C++	signature:(char*data, int length)
+get_steam_data_cb	stream.h	/^int get_steam_data_cb(char*data, int length);$/;"	p	language:C++	signature:(char*data, int length)
+get_stream_data	stream.cpp	/^static gboolean get_stream_data(void* data , unsigned long length)$/;"	f	language:C++	file:	signature:(void* data , unsigned long length)
+gl_draw_image	mainwindow.cpp	/^void MainWindow::gl_draw_image()$/;"	f	language:C++	class:MainWindow	signature:()
+gl_draw_image	mainwindow.h	/^    void gl_draw_image();$/;"	p	language:C++	class:MainWindow	signature:()
+gstreamer_get_status	stream.cpp	/^int gstreamer_get_status(){$/;"	f	language:C++	signature:()
+gstreamer_get_status	stream.h	/^int gstreamer_get_status();$/;"	p	language:C++	signature:()
+gstreamer_init	stream.cpp	/^void gstreamer_init(int need_scale)$/;"	f	language:C++	signature:(int need_scale)
+gstreamer_init	stream.h	/^void gstreamer_init(int need_scale);$/;"	p	language:C++	signature:(int need_scale)
+gstreamer_pause	stream.cpp	/^void gstreamer_pause()$/;"	f	language:C++	signature:()
+gstreamer_pause	stream.h	/^void gstreamer_pause();$/;"	p	language:C++	signature:()
+gstreamer_play	stream.cpp	/^void gstreamer_play()$/;"	f	language:C++	signature:()
+gstreamer_play	stream.h	/^void gstreamer_play();$/;"	p	language:C++	signature:()
+gstreamer_release	stream.cpp	/^void gstreamer_release()$/;"	f	language:C++	signature:()
+gstreamer_release	stream.h	/^void gstreamer_release();$/;"	p	language:C++	signature:()
+gstreamer_start_loop	stream.cpp	/^void gstreamer_start_loop()$/;"	f	language:C++	signature:()
+has_long_frame_buffered	stream.cpp	/^static int has_long_frame_buffered = FALSE;$/;"	v	language:C++	file:
+hide_ecolink	mainwindow.cpp	/^void MainWindow::hide_ecolink()$/;"	f	language:C++	class:MainWindow	signature:()
+hide_ecolink	mainwindow.h	/^    void hide_ecolink();$/;"	p	language:C++	class:MainWindow	signature:()
+in	ringbuffer.h	/^    unsigned long long in;$/;"	m	language:C++	struct:ring_buffer
+init	ringbuffer.cpp	/^void CRingBuf::init()$/;"	f	language:C++	class:CRingBuf	signature:()
+init	ringbuffer.h	/^    void init();$/;"	p	language:C++	class:CRingBuf	signature:()
+init_link	sdk.h	/^int init_link(IN ECOLINK_CFG* cb);$/;"	p	language:C++	signature:(IN ECOLINK_CFG* cb)
+init_touchevent	sdk.h	/^int init_touchevent(const char* dev); $/;"	p	language:C++	signature:(const char* dev)
+is_power_of_2	ringbuffer.cpp	19;"	d	language:C++	file:
+label	ui_mainwindow.h	/^    QLabel *label;$/;"	m	language:C++	class:Ui_MainWindow
+len	stream.cpp	/^int len  = 0;$/;"	v	language:C++
+link_connected_cb	sdk.h	/^	void (*link_connected_cb)();$/;"	m	language:C++	struct:__anon4
+link_disconnected_cb	sdk.h	/^	void (*link_disconnected_cb)();$/;"	m	language:C++	struct:__anon4
+link_phone_screen_data_cb	sdk.h	/^	void (*link_phone_screen_data_cb)(OUT int* mode ,OUT const char* buffer, OUT int* size);$/;"	m	language:C++	struct:__anon4
+link_status_changed_cb	sdk.h	/^	void (*link_status_changed_cb)(OUT int* status);$/;"	m	language:C++	struct:__anon4
+lock	ringbuffer.h	/^    pthread_mutex_t lock ;$/;"	m	language:C++	class:CRingBuf
+lock	stream.cpp	/^static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER ;$/;"	v	language:C++	file:
+loop	stream.cpp	/^static GMainLoop * loop;$/;"	v	language:C++	file:
+m_cinfo	jpegdecode.h	/^    struct jpeg_decompress_struct m_cinfo;$/;"	m	language:C++	class:CJpegDecode	typeref:struct:CJpegDecode::jpeg_decompress_struct
+m_decoder	ringbuffer.h	/^    CJpegDecode m_decoder;$/;"	m	language:C++	class:CRingBuf
+m_im	mainwindow.h	/^    QImage m_im;$/;"	m	language:C++	class:MainWindow
+m_jerr	jpegdecode.h	/^    struct jpeg_error_mgr m_jerr;$/;"	m	language:C++	class:CJpegDecode	typeref:struct:CJpegDecode::jpeg_error_mgr
+m_pix	mainwindow.h	/^    QPixmap m_pix;$/;"	m	language:C++	class:MainWindow
+m_pix1	mainwindow.h	/^    QPixmap m_pix1;$/;"	m	language:C++	class:MainWindow
+m_rbuf	mainwindow.h	/^    CRingBuf m_rbuf;$/;"	m	language:C++	class:MainWindow
+m_rgb_ptr	jpegdecode.h	/^    unsigned char* m_rgb_ptr;$/;"	m	language:C++	class:CJpegDecode
+m_size	jpegdecode.h	/^    unsigned long m_size;$/;"	m	language:C++	class:CJpegDecode
+m_win	ringbuffer.h	/^    MainWindow * m_win;$/;"	m	language:C++	class:CRingBuf
+main	main.cpp	/^int main(int argc, char *argv[])$/;"	f	language:C++	signature:(int argc, char *argv[])
+metaObject	moc_mainwindow.cpp	/^const QMetaObject *MainWindow::metaObject() const$/;"	f	language:C++	class:MainWindow	signature:() const
+min	ringbuffer.cpp	20;"	d	language:C++	file:
+mouseMoveEvent	mainwindow.cpp	/^void MainWindow::mouseMoveEvent(QMouseEvent *event)$/;"	f	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+mouseMoveEvent	mainwindow.h	/^    void mouseMoveEvent(QMouseEvent *event);$/;"	p	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+mousePressEvent	mainwindow.cpp	/^void MainWindow::mousePressEvent(QMouseEvent *event)$/;"	f	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+mousePressEvent	mainwindow.h	/^    void mousePressEvent(QMouseEvent *event);$/;"	p	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+mouseReleaseEvent	mainwindow.cpp	/^void MainWindow::mouseReleaseEvent(QMouseEvent *event)$/;"	f	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+mouseReleaseEvent	mainwindow.h	/^    void mouseReleaseEvent(QMouseEvent *event);$/;"	p	language:C++	class:MainWindow	signature:(QMouseEvent *event)
+out	ringbuffer.h	/^    unsigned long long out;$/;"	m	language:C++	struct:ring_buffer
+overlay	stream.cpp	/^void overlay(void)$/;"	f	language:C++	signature:(void)
+paintEvent	mainwindow.cpp	/^void MainWindow::paintEvent(QPaintEvent *event)$/;"	f	language:C++	class:MainWindow	signature:(QPaintEvent *event)
+paintEvent	mainwindow.h	/^    void paintEvent(QPaintEvent *event);$/;"	p	language:C++	class:MainWindow	signature:(QPaintEvent *event)
+paint_image	mainwindow.cpp	/^void MainWindow::paint_image(const char* file)$/;"	f	language:C++	class:MainWindow	signature:(const char* file)
+paint_image	mainwindow.cpp	/^void MainWindow::paint_image(int mode ,unsigned char* mem, unsigned long size)$/;"	f	language:C++	class:MainWindow	signature:(int mode ,unsigned char* mem, unsigned long size)
+paint_image	mainwindow.h	/^    void paint_image(const char* file);$/;"	p	language:C++	class:MainWindow	signature:(const char* file)
+paint_image	mainwindow.h	/^    void paint_image(int mode, unsigned char* mem , unsigned long size);$/;"	p	language:C++	class:MainWindow	signature:(int mode, unsigned char* mem , unsigned long size)
+pipeline	stream.cpp	/^static GstElement* pipeline = NULL;$/;"	v	language:C++	file:
+push_in	stream.cpp	/^int push_in(char* data ,int length,pthread_mutex_t* lock){$/;"	f	language:C++	signature:(char* data ,int length,pthread_mutex_t* lock)
+qt_draw_image	mainwindow.cpp	/^void MainWindow::qt_draw_image()$/;"	f	language:C++	class:MainWindow	signature:()
+qt_draw_image	mainwindow.h	/^    void qt_draw_image();$/;"	p	language:C++	class:MainWindow	signature:()
+qt_meta_data_MainWindow	moc_mainwindow.cpp	/^static const uint qt_meta_data_MainWindow[] = {$/;"	v	language:C++	file:
+qt_meta_stringdata_MainWindow	moc_mainwindow.cpp	/^static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {$/;"	v	language:C++	file:
+qt_meta_stringdata_MainWindow_t	moc_mainwindow.cpp	/^struct qt_meta_stringdata_MainWindow_t {$/;"	s	language:C++	file:
+qt_metacall	moc_mainwindow.cpp	/^int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)$/;"	f	language:C++	class:MainWindow	signature:(QMetaObject::Call _c, int _id, void **_a)
+qt_metacast	moc_mainwindow.cpp	/^void *MainWindow::qt_metacast(const char *_clname)$/;"	f	language:C++	class:MainWindow	signature:(const char *_clname)
+qt_static_metacall	moc_mainwindow.cpp	/^void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)$/;"	f	language:C++	class:MainWindow	signature:(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+query_sdk_version	sdk.h	/^int query_sdk_version(char* version);$/;"	p	language:C++	signature:(char* version)
+release_link	sdk.h	/^int release_link();$/;"	p	language:C++	signature:()
+release_rgb_buffer	jpegdecode.cpp	/^void CJpegDecode::release_rgb_buffer()$/;"	f	language:C++	class:CJpegDecode	signature:()
+release_rgb_buffer	jpegdecode.h	/^    void release_rgb_buffer();$/;"	p	language:C++	class:CJpegDecode	signature:()
+retranslateUi	ui_mainwindow.h	/^    void retranslateUi(QMainWindow *MainWindow)$/;"	f	language:C++	class:Ui_MainWindow	signature:(QMainWindow *MainWindow)
+ring_buffer	ringbuffer.h	/^typedef struct ring_buffer {$/;"	s	language:C++
+ring_buffer	ringbuffer.h	/^} ring_buffer;$/;"	t	language:C++	typeref:struct:ring_buffer
+ring_buffer_free	ringbuffer.cpp	/^void CRingBuf::ring_buffer_free(struct ring_buffer *ring_buf)$/;"	f	language:C++	class:CRingBuf	signature:(struct ring_buffer *ring_buf)
+ring_buffer_free	ringbuffer.h	/^    void ring_buffer_free(struct ring_buffer *ring_buf);$/;"	p	language:C++	class:CRingBuf	signature:(struct ring_buffer *ring_buf)
+ring_buffer_get	ringbuffer.cpp	/^unsigned char CRingBuf::ring_buffer_get()$/;"	f	language:C++	class:CRingBuf	signature:()
+ring_buffer_get	ringbuffer.h	/^    unsigned char ring_buffer_get();$/;"	p	language:C++	class:CRingBuf	signature:()
+ring_buffer_len	ringbuffer.cpp	/^unsigned char CRingBuf::ring_buffer_len(const struct ring_buffer *ring_buf)$/;"	f	language:C++	class:CRingBuf	signature:(const struct ring_buffer *ring_buf)
+ring_buffer_len	ringbuffer.h	/^    unsigned char ring_buffer_len(const struct ring_buffer *ring_buf);$/;"	p	language:C++	class:CRingBuf	signature:(const struct ring_buffer *ring_buf)
+ring_buffer_put_1	ringbuffer.cpp	/^unsigned char CRingBuf::ring_buffer_put_1(char * buffer, int buffersize)$/;"	f	language:C++	class:CRingBuf	signature:(char * buffer, int buffersize)
+ring_buffer_put_1	ringbuffer.h	/^    unsigned char ring_buffer_put_1(char * buffer, int buffersize);$/;"	p	language:C++	class:CRingBuf	signature:(char * buffer, int buffersize)
+save_errno	debug.cpp	/^int save_errno;$/;"	v	language:C++
+sc_height	sdk.h	/^	int sc_height;$/;"	m	language:C++	struct:__anon4
+sc_width	sdk.h	/^	int sc_width;$/;"	m	language:C++	struct:__anon4
+set_mainwindow_ptr	ringbuffer.cpp	/^void CRingBuf::set_mainwindow_ptr(MainWindow * w)$/;"	f	language:C++	class:CRingBuf	signature:(MainWindow * w)
+set_mainwindow_ptr	ringbuffer.h	/^    void set_mainwindow_ptr(MainWindow* w);$/;"	p	language:C++	class:CRingBuf	signature:(MainWindow* w)
+set_mirror_status	mainwindow.h	/^	void set_mirror_status(int flag);$/;"	p	language:C++	class:MainWindow	signature:(int flag)
+setupUi	ui_mainwindow.h	/^    void setupUi(QMainWindow *MainWindow)$/;"	f	language:C++	class:Ui_MainWindow	signature:(QMainWindow *MainWindow)
+show_ecolink	mainwindow.cpp	/^void MainWindow::show_ecolink()$/;"	f	language:C++	class:MainWindow	signature:()
+show_ecolink	mainwindow.h	/^    void show_ecolink();$/;"	p	language:C++	class:MainWindow	signature:()
+size	ringbuffer.h	/^    unsigned int size;$/;"	m	language:C++	struct:ring_buffer
+source_id	stream.cpp	/^static guint source_id = 0;$/;"	v	language:C++	file:
+src	stream.cpp	/^static GstAppSrc* src = NULL;$/;"	v	language:C++	file:
+st_changed	demo.cpp	/^void st_changed(int* st)$/;"	f	language:C++	signature:(int* st)
+st_changed	demo.h	/^void st_changed(int* st);$/;"	p	language:C++	signature:(int* st)
+start	stream.cpp	/^static int start = 0;$/;"	v	language:C++	file:
+start_feed	stream.cpp	/^static void start_feed(GstElement * pipeline, guint size, gpointer data)$/;"	f	language:C++	file:	signature:(GstElement * pipeline, guint size, gpointer data)
+start_get_image	mainwindow.cpp	/^void MainWindow::start_get_image()$/;"	f	language:C++	class:MainWindow	signature:()
+start_get_image	mainwindow.h	/^    void start_get_image();$/;"	p	language:C++	class:MainWindow	signature:()
+start_loop	stream.cpp	/^void start_loop(void* para)$/;"	f	language:C++	signature:(void* para)
+state	stream.cpp	/^static int state = NULLSTATE;$/;"	v	language:C++	file:
+staticMetaObject	moc_mainwindow.cpp	/^const QMetaObject MainWindow::staticMetaObject = {$/;"	m	language:C++	class:MainWindow	file:
+status	stream.cpp	/^static int status = 0;$/;"	v	language:C++	file:
+stop_decode_paint	mainwindow.h	/^    void stop_decode_paint();$/;"	p	language:C++	class:MainWindow	signature:()
+stop_feed	stream.cpp	/^static void stop_feed(GstElement * pipeline, gpointer data)$/;"	f	language:C++	file:	signature:(GstElement * pipeline, gpointer data)
+stop_get_image	mainwindow.cpp	/^void MainWindow::stop_get_image()$/;"	f	language:C++	class:MainWindow	signature:()
+stop_get_image	mainwindow.h	/^    void stop_get_image();$/;"	p	language:C++	class:MainWindow	signature:()
+stream_buf	stream.cpp	/^static char stream_buf[ 1000 * 1024];$/;"	v	language:C++	file:
+stringdata0	moc_mainwindow.cpp	/^    char stringdata0[40];$/;"	m	language:C++	struct:qt_meta_stringdata_MainWindow_t	file:
+t	debug.h	/^    struct timeval t[MAX_CHECK_TIME ];$/;"	m	language:C++	struct:TIME_DEBUG_STRUCT	typeref:struct:TIME_DEBUG_STRUCT::timeval
+tag	debug.h	/^    const char* tag;$/;"	m	language:C++	struct:__anon5
+tags	debug.cpp	/^TAG tags[MAX_TAGS] = {$/;"	v	language:C++
+thread_consume	mainwindow.h	/^    void thread_consume(void* pdata);$/;"	p	language:C++	class:MainWindow	signature:(void* pdata)
+thread_consume	ringbuffer.cpp	/^void* CRingBuf::thread_consume(void* pdata)$/;"	f	language:C++	class:CRingBuf	signature:(void* pdata)
+thread_consume	ringbuffer.h	/^    void* thread_consume(void* pdata);$/;"	p	language:C++	class:CRingBuf	signature:(void* pdata)
+timer	mainwindow.h	/^    QTimer *timer;$/;"	m	language:C++	class:MainWindow
+total	stream.cpp	/^long total = 0;$/;"	v	language:C++
+trace_bit	debug.cpp	/^int trace_bit = 0;$/;"	v	language:C++
+trace_count	debug.cpp	/^int trace_count = 0;$/;"	v	language:C++
+trace_init	debug.cpp	/^static void trace_init(const char* name)$/;"	f	language:C++	file:	signature:(const char* name)
+trace_init	debug.h	/^void trace_init(const char* name);$/;"	p	language:C++	signature:(const char* name)
+trace_mask	debug.cpp	/^int trace_mask = 0;$/;"	v	language:C++
+ui	mainwindow.h	/^    Ui::MainWindow *ui;$/;"	m	language:C++	class:MainWindow
+use_image_data_from_buffer	ringbuffer.h	/^typedef int (*use_image_data_from_buffer)(const char*,unsigned long);$/;"	t	language:C++
+view_base_x	sdk.h	/^	int view_base_x;$/;"	m	language:C++	struct:__anon4
+view_base_y	sdk.h	/^	int view_base_y;$/;"	m	language:C++	struct:__anon4
+view_height	sdk.h	/^	int view_height;$/;"	m	language:C++	struct:__anon4
+view_width	sdk.h	/^	int view_width;$/;"	m	language:C++	struct:__anon4
+window	main.cpp	/^MainWindow * window;$/;"	v	language:C++
+~CJpegDecode	jpegdecode.cpp	/^CJpegDecode::~CJpegDecode()$/;"	f	language:C++	class:CJpegDecode	signature:()
+~CJpegDecode	jpegdecode.h	/^    ~CJpegDecode();$/;"	p	language:C++	class:CJpegDecode	signature:()
+~CRingBuf	ringbuffer.cpp	/^CRingBuf::~CRingBuf()$/;"	f	language:C++	class:CRingBuf	signature:()
+~CRingBuf	ringbuffer.h	/^    ~CRingBuf();$/;"	p	language:C++	class:CRingBuf	signature:()
+~MainWindow	mainwindow.cpp	/^MainWindow::~MainWindow()$/;"	f	language:C++	class:MainWindow	signature:()
+~MainWindow	mainwindow.h	/^    ~MainWindow();$/;"	p	language:C++	class:MainWindow	signature:()
