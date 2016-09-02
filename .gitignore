@@ -1,5 +1,6 @@
 #cscope and tags
 cscope.*
+*.files
 tags
 #object files
 *.o
