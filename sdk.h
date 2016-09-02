@@ -118,6 +118,14 @@ typedef enum
 	STREAM,
 }ECOLINK_MODE;
 
+typedef enum
+{
+	BacktoMainpage = 0,
+	/*
+	 * Reserved
+	 * */
+}EXTRA_EVENTS;
+
 
 typedef struct 
 {
@@ -134,12 +142,6 @@ typedef struct
 } ECOLINK_CFG;
 
 
-/**
- * @brief get_link_version 
- * @param version
- * @return  version code
- */
-int query_sdk_version(char* version);
 /**
  * @brief init_link 
  * @param cb
@@ -192,6 +194,13 @@ int enable_touchevent();
  * @return 
  */
 int disable_touchevent(); 
+
+/**
+ * @brief extra_event 
+ * @param e
+ * @return 
+ */
+int extra_event(EXTRA_EVENTS e);
 
 #ifdef __cplusplus
 }
