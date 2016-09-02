@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = ecolink.bin1.0.0
-DISTDIR = /home/delphi/targetfs/home/root/ecolink-ui/ecolink-ui/.tmp/ecolink.bin1.0.0
+DISTDIR = /home/leauto/ecolink-sdk/ecolink-demo/.tmp/ecolink.bin1.0.0
 LINK          = $(OE_QMAKE_LINK)
 LFLAGS        = $(OE_QMAKE_LDFLAGS) -Wl,-O1
-LIBS          = $(SUBLIBS) -L. -lplist -lecolink -L/usr/local/libjpeg-turbo-1.4.2/freescale/lib -ljpeg -lcrypto -lgstapp-1.0 -lgmodule-2.0 -lgthread-2.0 -lffi -lgstpbutils-1.0 -lgstvideo-1.0 -lgstbase-1.0 -lgstaudio-1.0 -lgsttag-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lpthread 
+LIBS          = $(SUBLIBS) -L. -lplist -lecolink -lcrypto -lgstapp-1.0 -lgmodule-2.0 -lgthread-2.0 -lffi -lgstpbutils-1.0 -lgstvideo-1.0 -lgstbase-1.0 -lgstaudio-1.0 -lgsttag-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lpthread 
 AR            = $(OE_QMAKE_AR) cqs
 RANLIB        = 
 SED           = sed
@@ -51,15 +51,11 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		debug.cpp \
 		mainwindow.cpp \
-		ringbuffer.cpp \
-		jpegdecode.cpp \
 		stream.cpp \
 		demo.cpp moc_mainwindow.cpp
 OBJECTS       = main.o \
 		debug.o \
 		mainwindow.o \
-		ringbuffer.o \
-		jpegdecode.o \
 		stream.o \
 		demo.o \
 		moc_mainwindow.o
@@ -154,15 +150,11 @@ DIST          = /opt/yocto/sysroot/usr/lib/qt5/mkspecs/features/spec_pre.prf \
 		/opt/yocto/sysroot/usr/lib/qt5/mkspecs/features/lex.prf \
 		ecolink-ui.pro mainwindow.h \
 		debug.h \
-		ringbuffer.h \
-		jpegdecode.h \
 		stream.h \
 		sdk.h \
 		demo.h main.cpp \
 		debug.cpp \
 		mainwindow.cpp \
-		ringbuffer.cpp \
-		jpegdecode.cpp \
 		stream.cpp \
 		demo.cpp
 QMAKE_TARGET  = ecolink.bin
@@ -396,8 +388,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h debug.h ringbuffer.h jpegdecode.h stream.h sdk.h demo.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp debug.cpp mainwindow.cpp ringbuffer.cpp jpegdecode.cpp stream.cpp demo.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h debug.h stream.h sdk.h demo.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp debug.cpp mainwindow.cpp stream.cpp demo.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui $(DISTDIR)/
 
 
@@ -424,14 +416,8 @@ compiler_rcc_clean:
 compiler_moc_header_make_all: moc_mainwindow.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: ringbuffer.h \
-		jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
-		mainwindow.h
-	/opt/yocto/native-sysroot/usr/bin/qt5/moc $(DEFINES) -I/opt/yocto/sysroot/usr/lib/qt5/mkspecs/linux-oe-g++ -I/home/delphi/targetfs/home/root/ecolink-ui/ecolink-ui -I/opt/yocto/sysroot/usr/include/gstreamer-1.0 -I/opt/yocto/sysroot/usr/include/glib-2.0 -I/opt/yocto/sysroot/usr/lib/glib-2.0/include -I/opt/yocto/sysroot/usr/include/qt5 -I/opt/yocto/sysroot/usr/include/qt5/QtWidgets -I/opt/yocto/sysroot/usr/include/qt5/QtGui -I/opt/yocto/sysroot/usr/include/qt5/QtCore -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3 -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3/arm-linux-gnueabihf -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3/backward -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/lib/gcc/arm-linux-gnueabihf/4.8.3/include -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/lib/gcc/arm-linux-gnueabihf/4.8.3/include-fixed -I/opt/yocto/sysroot/usr/include mainwindow.h -o moc_mainwindow.cpp
+moc_mainwindow.cpp: mainwindow.h
+	/opt/yocto/native-sysroot/usr/bin/qt5/moc $(DEFINES) -I/opt/yocto/sysroot/usr/lib/qt5/mkspecs/linux-oe-g++ -I/home/leauto/ecolink-sdk/ecolink-demo -I/opt/yocto/sysroot/usr/include/gstreamer-1.0 -I/opt/yocto/sysroot/usr/include/glib-2.0 -I/opt/yocto/sysroot/usr/lib/glib-2.0/include -I/opt/yocto/sysroot/usr/include/qt5 -I/opt/yocto/sysroot/usr/include/qt5/QtWidgets -I/opt/yocto/sysroot/usr/include/qt5/QtGui -I/opt/yocto/sysroot/usr/include/qt5/QtCore -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3 -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3/arm-linux-gnueabihf -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/arm-linux-gnueabihf/include/c++/4.8.3/backward -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/lib/gcc/arm-linux-gnueabihf/4.8.3/include -I/mnt/yocto/linaro_sdk/gcc-linaro-arm-linux-gnueabihf-4.8-2014.01_linux/lib/gcc/arm-linux-gnueabihf/4.8.3/include-fixed -I/opt/yocto/sysroot/usr/include mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -452,12 +438,6 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: main.cpp mainwindow.h \
-		ringbuffer.h \
-		jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
 		debug.h \
 		stream.h \
 		sdk.h \
@@ -468,34 +448,10 @@ debug.o: debug.cpp debug.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug.o debug.cpp
 
 mainwindow.o: mainwindow.cpp mainwindow.h \
-		ringbuffer.h \
-		jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
 		ui_mainwindow.h \
 		debug.h \
 		stream.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
-
-ringbuffer.o: ringbuffer.cpp debug.h \
-		ringbuffer.h \
-		jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
-		mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ringbuffer.o ringbuffer.cpp
-
-jpegdecode.o: jpegdecode.cpp jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
-		debug.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o jpegdecode.o jpegdecode.cpp
 
 stream.o: stream.cpp stream.h \
 		debug.h
@@ -504,12 +460,6 @@ stream.o: stream.cpp stream.h \
 demo.o: demo.cpp debug.h \
 		stream.h \
 		mainwindow.h \
-		ringbuffer.h \
-		jpegdecode.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jpeglib.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jconfig.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jmorecfg.h \
-		/usr/local/libjpeg-turbo-1.4.2/freescale/include/jerror.h \
 		sdk.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o demo.o demo.cpp
 

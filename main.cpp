@@ -25,8 +25,8 @@ int main(int argc, char *argv[])
 	/*
 	 * ringbuf 
 	 * */
-    window->m_rbuf.set_mainwindow_ptr(&w);
-    window->m_rbuf.init();
+    //window->m_rbuf.set_mainwindow_ptr(&w);
+    //window->m_rbuf.init();
     window->show();
 	/*
 	 * sdk init

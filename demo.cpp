@@ -23,6 +23,7 @@ void connect()
 	enable_link_transfer();
 	gstreamer_init(0);
 	gstreamer_play();
+	//window->hide_ecolink();
 }
 
 void disconnect()
@@ -55,7 +56,6 @@ void st_changed(int* st)
 		case AndroidOnline:
 			DBG("AndroidOnline\n");
             window->paint_image(FULL_PATH(connecting.jpg));
-            window->show_ecolink();
 			break;
 		case AndroidAppLunchFail:
 			DBG("AndroidAppLunchFail\n");
@@ -112,6 +112,7 @@ void st_changed(int* st)
 			DBG("AndroidDisconnected\n");
 			break;
 		case AndroidConnected:
+			window->paint_image(FULL_PATH(black.jpg));
 			DBG("AndroidConnected\n");
 			break;
 		default:

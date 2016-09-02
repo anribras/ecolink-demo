@@ -37,7 +37,7 @@ DEL_DIR	Makefile	/^DEL_DIR       = rmdir$/;"	m	language:Make
 DEL_FILE	Makefile	/^DEL_FILE      = rm -f$/;"	m	language:Make
 DESTDIR	Makefile	/^DESTDIR       = #avoid trailing-slash linebreak$/;"	m	language:Make
 DIST	Makefile	/^DIST          = \/opt\/yocto\/sysroot\/usr\/lib\/qt5\/mkspecs\/features\/spec_pre.prf \\$/;"	m	language:Make
-DISTDIR	Makefile	/^DISTDIR = \/home\/delphi\/targetfs\/home\/root\/ecolink-ui\/ecolink-ui\/.tmp\/ecolink.bin1.0.0$/;"	m	language:Make
+DISTDIR	Makefile	/^DISTDIR = \/home\/leauto\/ecolink-sdk\/ecolink-demo\/.tmp\/ecolink.bin1.0.0$/;"	m	language:Make
 DISTNAME	Makefile	/^DISTNAME      = ecolink.bin1.0.0$/;"	m	language:Make
 DUMP_L	debug.h	81;"	d	language:C++
 DeviceOffline	sdk.h	/^	DeviceOffline = 0,$/;"	e	language:C++	enum:__anon2
@@ -240,9 +240,7 @@ overlay	stream.cpp	/^void overlay(void)$/;"	f	language:C++	signature:(void)
 paintEvent	mainwindow.cpp	/^void MainWindow::paintEvent(QPaintEvent *event)$/;"	f	language:C++	class:MainWindow	signature:(QPaintEvent *event)
 paintEvent	mainwindow.h	/^    void paintEvent(QPaintEvent *event);$/;"	p	language:C++	class:MainWindow	signature:(QPaintEvent *event)
 paint_image	mainwindow.cpp	/^void MainWindow::paint_image(const char* file)$/;"	f	language:C++	class:MainWindow	signature:(const char* file)
-paint_image	mainwindow.cpp	/^void MainWindow::paint_image(int mode ,unsigned char* mem, unsigned long size)$/;"	f	language:C++	class:MainWindow	signature:(int mode ,unsigned char* mem, unsigned long size)
 paint_image	mainwindow.h	/^    void paint_image(const char* file);$/;"	p	language:C++	class:MainWindow	signature:(const char* file)
-paint_image	mainwindow.h	/^    void paint_image(int mode, unsigned char* mem , unsigned long size);$/;"	p	language:C++	class:MainWindow	signature:(int mode, unsigned char* mem , unsigned long size)
 pipeline	stream.cpp	/^static GstElement* pipeline = NULL;$/;"	v	language:C++	file:
 push_in	stream.cpp	/^int push_in(char* data ,int length,pthread_mutex_t* lock){$/;"	f	language:C++	signature:(char* data ,int length,pthread_mutex_t* lock)
 qt_draw_image	mainwindow.cpp	/^void MainWindow::qt_draw_image()$/;"	f	language:C++	class:MainWindow	signature:()

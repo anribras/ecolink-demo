@@ -16,21 +16,17 @@ TARGET = ecolink.bin
 TEMPLATE = app
 
 
-LIBS += -L. -lplist -lecolink  -L/usr/local/libjpeg-turbo-1.4.2/freescale/lib -ljpeg -lcrypto -lgstvideo-1.0 -lgstapp-1.0 -lglib-2.0 -lgmodule-2.0 -lgthread-2.0 -lgobject-2.0 -lffi -lgstpbutils-1.0 -lgstvideo-1.0 -lgstbase-1.0 -lgstaudio-1.0 -lgsttag-1.0 
+LIBS += -L. -lplist -lecolink -lcrypto -lgstvideo-1.0 -lgstapp-1.0 -lglib-2.0 -lgmodule-2.0 -lgthread-2.0 -lgobject-2.0 -lffi -lgstpbutils-1.0 -lgstvideo-1.0 -lgstbase-1.0 -lgstaudio-1.0 -lgsttag-1.0 
 
 
 SOURCES += main.cpp\
        	   debug.cpp\
            mainwindow.cpp\
-		   ringbuffer.cpp\
-		   jpegdecode.cpp\
        	   stream.cpp\
 		   demo.cpp\
 
 HEADERS  += mainwindow.h\
 			debug.h\
-			ringbuffer.h\
-			jpegdecode.h\
 			stream.h\
 		   	sdk.h\
 		   	demo.h\

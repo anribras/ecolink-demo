@@ -1,4 +1,4 @@
-cscope 15 /home/leauto/ecolink-sdk/ecolink-demo -q 0000000995 0000055065
+cscope 15 /home/leauto/ecolink-sdk/ecolink-demo -q 0000000988 0000053404
 	@debug.cpp
 
 10 
@@ -1287,29 +1287,29 @@ __FUNCTION__
 	`g°ªamî_∂ay
 ();
 
-26 
+27 
 	}
 }
 
-28 
+29 
 	$disc⁄√˘
 ()
 
-30 
+31 
 	`DBG
 ("ˇŒback ->%s\n",
 __FUNCTION__
 );
 
-31 
+32 
 	`g°ªamî_∑u£
 ();
 
-32 
+33 
 	`g°ªamî_ªÀa£
 ();
 
-33 
+34 
 wödow
 ->
 	`∑öt_image
@@ -1321,39 +1321,39 @@ wödow
 jpg
 ));
 
-34 
+35 
 wödow
 ->
 	`show_ecﬁök
 ();
 
-35 
+36 
 	`dißbÀ_lök_å™s„r
 ();
 
-36 
+37 
 	}
 }
 
-43 
+44 
 	$°_ch™ged
 (* 
 °
 )
 
-49 *
+50 *
 °
 )
 
-51 
+52 
 AndroidAdbNŸO≥√d
 :
 
-52 
+53 
 	`DBG
 ("AndroidAdbNotOpened\n");
 
-53 
+54 
 wödow
 ->
 	`∑öt_image
@@ -1367,15 +1367,15 @@ hñp
 jpg
 ));
 
-55 
+56 
 AndroidO∆öe
 :
 
-56 
+57 
 	`DBG
 ("AndroidOnline\n");
 
-57 
+58 
 wödow
 ->
 	`∑öt_image
@@ -1386,12 +1386,6 @@ c⁄√˘ög
 .
 jpg
 ));
-
-58 
-wödow
-->
-	`show_ecﬁök
-();
 
 60 
 AndroidAµLunchFaû
@@ -1622,20 +1616,32 @@ AndroidC⁄√˘ed
 :
 
 115 
+wödow
+->
+	`∑öt_image
+(
+	`FULL_PATH
+(
+bœck
+.
+jpg
+));
+
+116 
 	`DBG
 ("AndroidConnected\n");
 
-118 
+119 
 	`DBG
 ("nŸ deföed sèã sà%d\n",*
 °
 );
 
-121 
+122 
 	}
 }
 
-123 
+124 
 	$d©a_gŸãn
 (* 
 mode
@@ -1645,7 +1651,7 @@ buf„r
 size
 )
 
-126 
+127 
 	`gë_°óm_d©a_cb
 (
 buf„r
@@ -1653,7 +1659,7 @@ buf„r
 size
 );
 
-127 
+128 
 	}
 }
 
@@ -2354,56 +2360,68 @@ d©a_gŸãn
 42 
 cfg
 .
-sc_ba£_x
+võw_ba£_x
  = 0;
 
 43 
 cfg
 .
-sc_ba£_y
+võw_ba£_y
  = 40;
 
 47 
 cfg
 .
-sc_width
+võw_width
 = 1280;
 
 48 
 cfg
 .
-sc_height
+võw_height
 = 720;
 
-53 if(
+52 
+cfg
+.
+sc_width
+ = 1280;
+
+53 
+cfg
+.
+sc_height
+ = 800;
+
+55 if(
 	`öô_lök
 (&
 cfg
 ))
 
-54 
+56 
 	`exô
 (-1);
 
-58 if(
+60 if(
 	`öô_touchevít
 ("/dev/input/touchscreen0"))
 
-59 
+61 
 	`exô
 (-1);
 
-61 
+63 
 	`DBG
 ("qt5Écolink start\n");
 
-63  
+65  
 ≠p
 .
 	`exec
 ();
 
-64 
+66 
 	}
 }
 
@@ -2883,334 +2901,6 @@ fûe
 	}
 }
 
-155 
-	gMaöWödow
-::
-	$∑öt_image
-(
-mode
- ,* 
-mem
-, 
-size
-)
-
-157 
-i
- =0;
-
-158 
-fd
-;
-
-159 
-f‹m©
-;
-
-160 
-ªt
-;
-
-161 
-mode
- = 0;
-
-162 
-i
-++;
-
-163 
-mode
-) {
-
-165 if–
-i
- & 1) {
-
-166 
-m_pix
-.
-	`lﬂdFromD©a
-(
-mem
-,
-size
-,"JPG");
-
-169 if(
-m_pix
-.
-	`width
-() == 1280) {
-
-170 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix
-);
-
-171 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-(0,0,1280,800);
-
-173 } if(
-m_pix
-.
-	`width
-() == 400) {
-
-174 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix
-);
-
-175 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-((1280-400)/2,0,(1280-400)/2,800);
-
-176 
-	`u¶ìp
-(20000);
-
-179 
-m_pix1
-.
-	`lﬂdFromD©a
-(
-mem
-,
-size
-,"JPG");
-
-182 if(
-m_pix1
-.
-	`width
-() == 1280) {
-
-183 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix1
-);
-
-184 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-(0,0,1280,800);
-
-186 } if(
-m_pix1
-.
-	`width
-() == 400) {
-
-187 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix1
-);
-
-188 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-((1280-400)/2,0,(1280-400)/2,800);
-
-189 
-	`u¶ìp
-(20000);
-
-194 
-f‹m©
- = 
-QImage
-::
-F‹m©_RGBA8888
-;
-
-195 
-ªt
- = 
-m_rbuf
-.
-m_decodî
-.
-	`decode_‰om_mem
-(
-mem
-,
-size
-);
-
-196 
-	`DBG
-("w = %d h = %d \n",
-m_pix
-.
-	`width
-(),m_pix.
-	`height
-());
-
-197 if(
-m_pix
-.
-	`width
-() == 1280) {
-
-198 
-m_im
- = 
-	`QImage
-(
-m_rbuf
-.
-m_decodî
-.
-m_rgb_±r
-,
-
-202 (
-QImage
-::
-F‹m©
-)
-f‹m©
-);
-
-203 
-m_pix
- = 
-QPixm≠
-::
-	`‰omImage
-(
-m_im
-);
-
-204 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix
-);
-
-205 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-(0,0,1280,800);
-
-206 
-	`u¶ìp
-(10000);
-
-207 } if(
-m_pix
-.
-	`width
-() == 400) {
-
-208 
-m_im
- = 
-	`QImage
-(
-m_rbuf
-.
-m_decodî
-.
-m_rgb_±r
-,
-
-212 (
-QImage
-::
-F‹m©
-)
-f‹m©
-);
-
-213 
-m_pix
- = 
-QPixm≠
-::
-	`‰omImage
-(
-m_im
-);
-
-214 
-ui
-->
-œbñ
-->
-	`£tPixm≠
-(
-m_pix
-);
-
-215 
-ui
-->
-œbñ
-->
-	`£tGeomëry
-((1280-400)/2,0,(1280-400)/2,800);
-
-216 
-	`u¶ìp
-(20000);
-
-218 
-m_rbuf
-.
-m_decodî
-.
-	`ªÀa£_rgb_buf„r
-();
-
-223 
-	}
-}
-
 	@mainwindow.h
 
 1 #i‚de‡
@@ -3352,64 +3042,54 @@ fûe
 );
 
 39 
-∑öt_image
-(
-mode
-, * 
-mem
- , 
-size
-);
-
-40 
 °¨t_gë_image
 ();
 
-41 
+40 
 °›_gë_image
 ();
 
-42 
+41 
 °›_decode_∑öt
 ();
 
-43 
+42 
 show_ecﬁök
 ();
 
-44 
+43 
 hide_ecﬁök
 ();
 
-45 
+44 
 gë_múr‹_°©us
 ();
 
-46 
+45 
 £t_múr‹_°©us
 (
 Êag
 );
 
-47 
+46 
 ¥iv©e
  
 	m¶Ÿs
 :
 
-49 
+48 
 qt_døw_image
 ();
 
-50 
+49 
 gl_døw_image
 ();
 
-52 
+51 
 	m¥iv©e
 :
 
-53 
+52 
 Ui
 ::
 MaöWödow
@@ -3417,17 +3097,17 @@ MaöWödow
 ui
 ;
 
-54 
+53 
 thªad_c⁄sume
 (* 
 pd©a
 );
 
-55 
+54 
 	m¥Ÿe˘ed
 :
 
-56 
+55 
 ∑ötEvít
 (
 QPaötEvít
@@ -3435,7 +3115,7 @@ QPaötEvít
 evít
 );
 
-57 
+56 
 mou£PªssEvít
 (
 QMou£Evít
@@ -3443,7 +3123,7 @@ QMou£Evít
 evít
 );
 
-58 
+57 
 mou£MoveEvít
 (
 QMou£Evít
@@ -3451,7 +3131,7 @@ QMou£Evít
 evít
 );
 
-59 
+58 
 mou£Rñó£Evít
 (
 QMou£Evít

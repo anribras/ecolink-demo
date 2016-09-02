@@ -9,7 +9,7 @@
 #include <QTimer>
 #include <QMouseEvent>
 
-#include "ringbuffer.h"
+//#include "ringbuffer.h"
 
 #define FULL_PATH(filename) "/usr/app/res/le/images/"#filename""
 
@@ -23,7 +23,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    CRingBuf m_rbuf;
+    //CRingBuf m_rbuf;
     unsigned int count;
     QTimer *timer;
     QPoint *cur_pos;
@@ -36,7 +36,6 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void paint_image(const char* file);
-    void paint_image(int mode, unsigned char* mem , unsigned long size);
     void start_get_image();
     void stop_get_image();
     void stop_decode_paint();
