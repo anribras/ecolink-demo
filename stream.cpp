@@ -155,7 +155,7 @@ int get_steam_data_cb(char* data, int length)
 	if(state  == PLAYING){
         pthread_mutex_lock(&lock);
 		//DBG("get stream data ...length = %d\n",length);
-#if 0
+#if 1
 		int nal_header = *((int*)data);
 		//DUMP_L(data,10);
 		//if meets 0x41 0x65 save into a whole frame first
