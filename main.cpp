@@ -6,9 +6,19 @@
 #include "stream.h"
 #include "sdk.h"
 #include "demo.h"
+#include <signal.h>
 
 
 MainWindow * window;
+
+void on_signal(int sign_no)
+{
+  if(sign_no == SIGINT)
+  {
+	  DBG("ctrl + c to quit\n");
+	  exit(0);
+  }
+}
 
 
 /**
@@ -22,6 +32,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow w;
     window = &w;
+	signal(SIGINT, on_signal);
 	/*
 	 * ringbuf 
 	 * */
@@ -40,7 +51,7 @@ int main(int argc, char *argv[])
 	 * offset 
 	 * */
 	cfg.view_base_x = 0;
-	cfg.view_base_y = 40;
+	cfg.view_base_y = 0;
 	/*
 	 * view size
 	 * */
@@ -50,17 +61,19 @@ int main(int argc, char *argv[])
 	 * screen size
 	 * */
 	cfg.sc_width = 1280;
-	cfg.sc_height = 800;
+	cfg.sc_height = 720;
+
 
 	if(init_link(&cfg))
 		exit(-1);
 	/*
 	 *touchscreen event init
 	 */
-	if(init_touchevent("/dev/input/touchscreen0"))
+	if(init_touchevent("/dev/input/event0"))
 		exit(-1);
 
     DBG("qt5 ecolink start\n");
+
 
     return app.exec();
 }

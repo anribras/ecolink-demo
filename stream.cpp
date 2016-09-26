@@ -5,7 +5,7 @@
 #include "debug.h"
 
 
-//#define SRC_FROM_FILE
+#define GS_FIFO_PATH "/tmp/gs_fifo"
 
 
 
@@ -15,6 +15,10 @@ static guint source_id = 0;
 static GMainLoop * loop;
 static GstAppSrc* src = NULL;
 static GstElement* pipeline = NULL;
+static int fd;
+static int len  = 0;
+static long total = 0;
+static FILE* fp = NULL ;
 /**
  * @brief start_loop 
  * @param para
@@ -24,12 +28,9 @@ void start_loop(void* para)
 	DBG("%s\n",__FUNCTION__);
     g_return_if_fail(NULL != loop);
 	g_main_loop_run(loop);
-	if(state != NULLSTATE){
-		DBG("exit looping\n");
-		gst_element_set_state (pipeline, GST_STATE_NULL);
-		gst_object_unref(GST_OBJECT(pipeline));
-		g_main_loop_unref(loop);
-	}
+	DBG("exit looping\n");
+	g_main_loop_unref(loop);
+	gst_object_unref(GST_OBJECT(pipeline));
 	return;
 }
 
@@ -73,9 +74,9 @@ void gstreamer_release()
 	state = NULLSTATE;
 	if(pipeline)
 		gst_element_set_state (pipeline, GST_STATE_NULL);
-    //gst_object_unref(GST_OBJECT(pipeline));
 	g_main_loop_quit(loop);
-    //g_main_loop_unref(loop);
+    //gst_object_unref(GST_OBJECT(pipeline));
+    //gst_object_unref(GST_OBJECT(pipeline));
 }
 
 
@@ -86,13 +87,15 @@ void gstreamer_release()
  * @param lock
  * @return 
  */
-int push_in(char* data ,int length,pthread_mutex_t* lock){
+int push_in(char* data_0 ,int length,pthread_mutex_t* lock){
 
 	//if(length < 500){
 		//DUMP_L(data,length);
 	//}
+	/*data must from stack!*/
 	GstFlowReturn signal_status;
 	GstBuffer* buffer;
+#if 0
 	guint8 *ptr = (guint8 *)g_malloc(length);
 	g_assert(ptr);
 	memcpy(ptr,data,length);
@@ -101,16 +104,28 @@ int push_in(char* data ,int length,pthread_mutex_t* lock){
 	gst_memory_new_wrapped(
 		GST_MEMORY_FLAG_PHYSICALLY_CONTIGUOUS,
 		ptr, length, 0, length, ptr, g_free));
+#else
+    guint8 *ptr = (guint8 *)g_malloc(length);
+    g_assert(ptr);
+    memcpy(ptr,data_0,length);
+    buffer = gst_buffer_new_and_alloc(length);
+    GST_BUFFER_MALLOCDATA(buffer) = ptr;
+    GST_BUFFER_SIZE(buffer) = length;
+    GST_BUFFER_DATA(buffer) = GST_BUFFER_MALLOCDATA(buffer);
+    //gst_buffer_set_data(buffer,(guint8*)ptr,length);
+#endif
 	g_signal_emit_by_name(src, "push-buffer", buffer, &signal_status);
-	//DBG("pushed length =%d,status = %d\n",length,signal_status);
+	//gst_app_src_push_buffer(src,buffer);
 	if(GST_FLOW_OK == signal_status) {
-		//DBG("push buffer ok\n");
+		//DBG("push buffer ok new\n");
 		gst_buffer_unref(buffer);
+        //g_free(ptr);
 		pthread_mutex_unlock(lock);
 		return true;
 	} else {
 		DBG("push buffer returned %d for %d bytes \n", signal_status, length);
 		gst_buffer_unref(buffer);
+        //g_free(ptr);
 		pthread_mutex_unlock(lock);
 		return false;
 	}
@@ -121,34 +136,36 @@ int push_in(char* data ,int length,pthread_mutex_t* lock){
  * @param length
  * @return
  */
-static char stream_buf[ 1000 * 1024];
+#if 1
+static char stream_buf[ 500 * 1024];
 static int buffered_len = 0;
 static int has_long_frame_buffered = FALSE;
 static int start = 0;
 static int status = 0;
 typedef enum STATUS{
-	HAS_START_CODE_f,
-	HAS_START_CODE_s,
-	MORE_DATA,
-	HAS_FRAME_HEAD
+    HAS_START_CODE_f,
+    HAS_START_CODE_s,
+    MORE_DATA,
+    HAS_FRAME_HEAD
 };
+#endif
 
-int get_steam_data_cb(char*data, int length)
+int get_steam_data_cb(char* data, int length)
 {
-    //DBG("get stream data ...length = %d\n",size);
 	if(state  == PLAYING){
-		pthread_mutex_lock(&lock);
+        pthread_mutex_lock(&lock);
+		//DBG("get stream data ...length = %d\n",length);
 #if 0
 		int nal_header = *((int*)data);
-		DUMP_L(data,10);
+		//DUMP_L(data,10);
 		//if meets 0x41 0x65 save into a whole frame first
 		switch(status){
 			case HAS_FRAME_HEAD:
 				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-				push_in(stream_buf,buffered_len,&lock);
+                push_in(stream_buf,buffered_len,&lock);
 				buffered_len = 0;
 				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-				status = 0;
+                status = 0;
 				break;
 			case MORE_DATA:
 				memcpy(stream_buf + buffered_len,data,length);
@@ -161,20 +178,29 @@ int get_steam_data_cb(char*data, int length)
 				break;
 		}
 		if(nal_header == 0x01000000){
-			if(data[4] == 0x65 || 
-			   data[4] == 0x41 ||
-			   data[4] == 0x67){
+			if((data[4] & 0x5)== 0x5 || 
+			   (data[4] & 0x1)== 0x1 ||
+			   (data[4] & 0x7)== 0x7 )
+			{
 				memcpy(stream_buf + buffered_len,data,length);
 				buffered_len +=  length;
 				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
 				status = HAS_FRAME_HEAD;
 				pthread_mutex_unlock(&lock);
-				return;
+				return 0;
 			}
-		}
+        }
+        else{
+            status = MORE_DATA;
+        }
+
 #else
-		//DUMP_L(data,10);
-		push_in(data,length,&lock);
+        memcpy(stream_buf + buffered_len,data,length);
+        buffered_len +=  length;
+        push_in(stream_buf,buffered_len,&lock);
+        buffered_len = 0;
+        //DUMP_L(data,20);
+        //push_in(data,length,&lock);
 #endif
 
 	}
@@ -191,21 +217,16 @@ static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data)
     case GST_MESSAGE_ERROR:
         gchar *debug;
         GError *error;
-
         gst_message_parse_error(msg, &error, &debug);
         g_free(debug);
-
         DBG("Error: %s\n", error->message);
         g_error_free(error);
-
         //g_main_loop_quit(loop);
-
         break;
 
     case GST_MESSAGE_WARNING: {
         gchar *debug;
         GError *err;
-
         gst_message_parse_warning(msg, &err, &debug);
         g_free(debug);
         DBG("Message Warn  %d Error: (%s:%d) %s\n",  (gint32)err->domain, g_quark_to_string(err->domain),err->code, err->message);
@@ -224,12 +245,10 @@ static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data)
         GstState old_state, new_state;
 
         gst_message_parse_state_changed(msg, &old_state, &new_state, NULL);
-#if 0
         DBG (" Element %s changed state from %s to %s\n",
              GST_OBJECT_NAME (msg->src),
              gst_element_state_get_name (old_state),
              gst_element_state_get_name (new_state));
-#endif
         break;
     }
     case GST_MESSAGE_STEP_DONE: {
@@ -244,22 +263,16 @@ static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data)
         GstStreamStatusType type;
         GstElement  *owner;
         gst_message_parse_stream_status (msg, &type, &owner);
-#if 0
         DBG("Message StreamStatus Element %s (%d)\n",  GST_OBJECT_NAME (msg->src), (gint32)type);
-#endif
         break;
     }
     default:
-        DBG("default,type = %d\n",GST_MESSAGE_TYPE(msg));
+        DBG("default,type = %x\n",GST_MESSAGE_TYPE(msg));
         break;
     }
 
     return true;
 }
-
-int len  = 0;
-long total = 0;
-FILE* fp = NULL ;
 
 
 static gboolean get_stream_data(void* data , unsigned long length)
@@ -274,9 +287,12 @@ static gboolean get_stream_data(void* data , unsigned long length)
         total += len;
         /* wrap and send data to the AppSrc */
         buffer = gst_buffer_new();
+#if 0
         gst_buffer_append_memory(buffer,
                                  gst_memory_new_wrapped(GST_MEMORY_FLAG_READONLY, ptr, len, 0, len, ptr, g_free));
         g_signal_emit_by_name(src, "push-buffer", buffer, &signal_status);
+#else
+#endif
         if(GST_FLOW_OK == signal_status) {
             DBG("push buffer ok\n");
             gst_buffer_unref(buffer);
@@ -297,11 +313,6 @@ static gboolean get_stream_data(void* data , unsigned long length)
 static void start_feed(GstElement * pipeline, guint size, gpointer data)
 {
     //DBG("start_feed\n");
-#ifdef SRC_FROM_FILE
-    if (source_id == 0) {
-        source_id = g_idle_add((GSourceFunc)get_stream_data, data);
-    }
-#endif
 }
 /**
  * @brief stop_feed
@@ -310,15 +321,7 @@ static void start_feed(GstElement * pipeline, guint size, gpointer data)
  */
 static void stop_feed(GstElement * pipeline, gpointer data)
 {
-	guint64 max = gst_app_src_get_max_bytes(src);
-	guint64 cur = gst_app_src_get_current_level_bytes(src);
-    DBG("warnning ! stream data full max=%d cur=%d\n",max,cur);
-#ifdef SRC_FROM_FILE
-    if (source_id != 0) {
-        g_source_remove(source_id);
-        source_id = 0;
-    }
-#endif
+    DBG("stop_feed\n");
 }
 
 
@@ -354,10 +357,11 @@ void gstreamer_init(int need_scale)
     }
     g_object_set(G_OBJECT(src), "is-live", TRUE, NULL);
     g_object_set(G_OBJECT(src), "block", TRUE, NULL);
+    //g_object_set(G_OBJECT(src), "blocksize", 4096 * 20, NULL);
 
     //g_object_set(G_OBJECT(src), "do-timestamp", TRUE, NULL);
     gst_app_src_set_stream_type(src, GST_APP_STREAM_TYPE_STREAM);
-	gst_app_src_set_max_bytes(src,100 * 1024);
+	gst_app_src_set_max_bytes(src,0);
     /*byte stream*/
     //g_object_set(G_OBJECT(src), "stream-type", 0, NULL);
 
@@ -366,12 +370,17 @@ void gstreamer_init(int need_scale)
     if(!parser) {
         DBG("create parser fail\n");
     }
-    decoder = gst_element_factory_make("ducatih264decvpe","decoder");
+    decoder = gst_element_factory_make("vpudec","decoder");
+    //decoder = gst_element_factory_make("ffdec_h264","decoder");
     if(!decoder) {
         DBG("create decoder fail\n");
     }
-	
-    converter = gst_element_factory_make("videoconvert","converter");
+   g_object_set(G_OBJECT(decoder), "low-latency", TRUE, NULL);
+   g_object_set(G_OBJECT(decoder), "framerate-nu", 25, NULL);
+   //g_object_set(G_OBJECT(decoder), "framedrop", TRUE, NULL);
+   g_object_set(G_OBJECT(decoder), "dis-reorder", TRUE, NULL);
+   //g_object_set(G_OBJECT(decoder), "framedrop-level-mask", 0x0ff, NULL); 
+    converter = gst_element_factory_make("ffmpegcolorspace","converter");
     if(!converter) {
         DBG("create converter fail\n");
     }
@@ -390,23 +399,18 @@ void gstreamer_init(int need_scale)
 			DBG("create rate fail\n");
 		}
 	   //GstCaps *caps = gst_caps_from_string ("video/x-raw,framerate=25/1");
-	   GstCaps *caps = gst_caps_from_string ("video/x-raw,height=800,width=1280");
+	   GstCaps *caps = gst_caps_from_string ("video/x-raw,height=720,width=1280");
 	   g_object_set (filter, "caps", caps, NULL);
 	}
 
-    sink = gst_element_factory_make("waylandsink","sink");
-
+    sink = gst_element_factory_make("mfw_v4lsink","sink");
+    //sink = gst_element_factory_make("mfw_isink","sink");
     if(!sink) {
         DBG("create sink fail\n");
     }
     /*sink sync false*/
     g_object_set(sink, "sync", false, "async",false,NULL);
     /*sink ivi-id value*/
-    int ivi_id = 101202;
-    memset(&value, 0, sizeof(GValue));
-    g_value_init(&value, G_TYPE_INT);
-    g_value_set_int(&value, ivi_id);
-    g_object_set_property(G_OBJECT(sink), "ivi-id", &value);
 
     /*register bus*/
     bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
@@ -423,9 +427,9 @@ void gstreamer_init(int need_scale)
 			DBG("pipeline link ok\n");
 	}
 	else{
-		gst_bin_add_many(GST_BIN(pipeline),(GstElement* )src,parser,decoder,converter,sink,NULL);
+		gst_bin_add_many(GST_BIN(pipeline),(GstElement* )src,parser,decoder,sink,NULL);
 		/*link all*/
-		if(!gst_element_link_many((GstElement* )src,parser,decoder,converter,sink,NULL))
+		if(!gst_element_link_many((GstElement* )src,parser,decoder,sink,NULL))
 			DBG("pipeline link fail\n");
 		else
 			DBG("pipeline link ok\n");
@@ -438,25 +442,11 @@ void gstreamer_init(int need_scale)
 
     gst_element_set_state(pipeline,GST_STATE_NULL);
 
-#ifdef SRC_FROM_FILE
-    if((fp = fopen((char*)path,"rb")) == NULL) {
-        DBG("file open error\n");
-        exit(-1);
-    }
-#endif
-#if 0
-    //gst_element_set_state(pipeline,GST_STATE_PLAYING);
-	g_main_loop_run(loop);
-	state = NULLSTATE;
-	//DBG("exit looping\n");
-    //gst_element_set_state (pipeline, GST_STATE_NULL);
-    //gst_object_unref(GST_OBJECT(pipeline));
-    //g_main_loop_unref(loop);
-#else
+	usleep(100000);
+	gstreamer_play();
+	usleep(100000);
 	gstreamer_start_loop();
 	usleep(100000);
-#endif
-
     return ;
 
 }

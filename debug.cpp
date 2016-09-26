@@ -56,7 +56,7 @@ unsigned int check_point_in_list(unsigned int from, unsigned int to)
     return (dbg._check_seq - 1);
 }
 
-static void trace_init(const char* name)
+void trace_init(const char* name)
 {
     /*read from env*/
     const char*  p = getenv("ECOLINK_TRACE_CFG");

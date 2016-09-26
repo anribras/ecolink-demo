@@ -10,6 +10,6 @@
 void connect();
 void disconnect();
 void st_changed(int* st);
-void data_gotten(int* mode ,const char* buffer, int* size);
+void data_gotten(int* mode ,char* buffer, int* size);
 #endif	
 

@@ -31,7 +31,7 @@ LIBS += -Wl,-rpath-link=$$(D27_SYSROOT)/lib
 LIBS += -L$$(D27_SYSROOT)/usr/lib  -L$$(D27_SYSROOT)/lib
 
 
-LIBS += -L. -lplist -lecolink  -lgstvideo-0.10 -lgstapp-0.10 -lglib-2.0 -lgmodule-2.0 -lgthread-2.0 -lgobject-2.0 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol 
+LIBS += -L. -lplist -lecolink  -lgstvideo-0.10 -lgstapp-0.10 -lglib-2.0 -lgmodule-2.0 -lgthread-2.0 -lgobject-2.0 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto
 
 
 SOURCES += main.cpp\
@@ -39,13 +39,11 @@ SOURCES += main.cpp\
            mainwindow.cpp\
        	   stream.cpp\
 		   demo.cpp\
-           newpushbutton.cpp
 
 HEADERS  += mainwindow.h\
 			debug.h\
 			stream.h\
 		   	sdk.h\
 		   	demo.h\
-            newpushbutton.h
 
 FORMS    += mainwindow.ui

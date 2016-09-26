@@ -15,25 +15,52 @@
 #include "sdk.h"
 
 
+//#define SAVE_STREAM_TO_FILE
+
 extern MainWindow* window;
+
+static int test_fd;
+static int test_fd1;
 
 void connect()
 {
 	DBG("callback ->%s\n",__FUNCTION__);
 	enable_link_transfer();
+#ifdef SAVE_STREAM_TO_FILE
+        test_fd = open("test.h264",O_RDWR | O_CREAT,0664);
+        if(test_fd < 0) {
+            DBG("test.h264 open fail\n");
+            return;
+        } else {
+            DBG("test.h264 open ok\n");
+        }
+		test_fd1 = open("size.txt",O_RDWR | O_CREAT,0664);
+        if(test_fd1 < 0) {
+            DBG("size.txt open fail\n");
+            return;
+        } else {
+            DBG("size.txt open ok\n");
+        }
+#endif
+	//gstreamer_play();
 	gstreamer_init(0);
-	gstreamer_play();
 	//window->hide_ecolink();
 }
 
 void disconnect()
 {
 	DBG("callback ->%s\n",__FUNCTION__);
+	disable_link_transfer();
 	gstreamer_pause();
 	gstreamer_release();
 	window->paint_image(FULL_PATH(init.jpg));
 	window->show_ecolink();
-	disable_link_transfer();
+#ifdef SAVE_STREAM_TO_FILE
+        if(test_fd)
+            close(test_fd);
+		if(test_fd1)
+            close(test_fd1);
+#endif
 }
 
 /**
@@ -107,7 +134,8 @@ void st_changed(int* st)
 			break;
 		case AndroidAppBackground:
 			DBG("AndroidAppBackground\n");
-			break;
+            window->enable_transparentBgd();
+            break;
 		case AndroidDisconnected:
 			DBG("AndroidDisconnected\n");
 			break;
@@ -121,10 +149,17 @@ void st_changed(int* st)
 	}
 }
 
-void data_gotten(int* mode ,const char* buffer, int* size)
+void data_gotten(int* mode ,char* buffer, int* size)
 {
-	//DBG("callback ->%s mode = %d\n",__FUNCTION__, *mode);
-	get_steam_data_cb(buffer,size);
+	//DBG("callback ->%s mode = %d size = %d\n",__FUNCTION__, *mode,*size);
+#ifdef SAVE_STREAM_TO_FILE
+	char length_str[10] = {'\0'};
+	int len;
+	sprintf(length_str,"%d\n",*size);
+    write(test_fd1,length_str,strlen(length_str));
+    write(test_fd,buffer,*size);
+#endif
+	get_steam_data_cb(buffer,*size);
 }
 
 

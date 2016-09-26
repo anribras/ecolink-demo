@@ -8,10 +8,22 @@
 #include <QPainter>
 #include <QTimer>
 #include <QMouseEvent>
+#include <QMainWindow>
+#include <QDrag>
+#include <QMimeData>
+#include <QMouseEvent>
+#include <QPoint>
+#include <QDebug>
+#include <QDropEvent>
+#include <QEvent>
+#include <QIcon>
 
-//#include "ringbuffer.h"
+#include "fbcontrol.h"
 
-#define FULL_PATH(filename) "/usr/app/res/le/images/"#filename""
+
+#define FLOAT_BTN_EN
+
+#define FULL_PATH(filename) "/usr/app/phonelink/ecolink/res/le/images/"#filename""
 
 namespace Ui
 {
@@ -30,6 +42,7 @@ public:
     QPixmap m_pix;
     QPixmap m_pix1;
     QImage m_im;
+    Fbcontrol m_fbc;
     /**
      * method
      * */
@@ -43,19 +56,31 @@ public:
     void hide_ecolink();
 	int get_mirror_status();
 	void set_mirror_status(int flag);
+    void enable_transparentBgd();
+    void disable_transparentBgd();
 private slots:
-    //void on_pushButton_clicked();
     void qt_draw_image();
     void gl_draw_image();
+#ifdef FLOAT_BTN_EN
+    void on_floatButton_clicked();
+    void on_appBtn_clicked();
+    void on_returnBtn_clicked();
+    void on_homeBtn_clicked();
+    void on_menuBtn_clicked();
+#endif
 
 private:
     Ui::MainWindow *ui;
     void thread_consume(void* pdata);
 protected:
+    bool pressedFolatBtn;
+    bool movedFolatBtn;
+    bool releasedFolatBtn;
     void paintEvent(QPaintEvent *event);
-    void mousePressEvent(QMouseEvent *event);
-    void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+    void mouseMoveEvent(QMouseEvent *);
+    void mousePressEvent(QMouseEvent *);
+    bool eventFilter(QObject *, QEvent *evt);
 };
 
 #endif // MAINWINDOW_H

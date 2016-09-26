@@ -132,7 +132,7 @@ typedef struct
 	void (*link_connected_cb)();
 	void (*link_disconnected_cb)();
 	void (*link_status_changed_cb)(OUT int* status);
-	void (*link_phone_screen_data_cb)(OUT int* mode ,OUT const char* buffer, OUT int* size);
+	void (*link_phone_screen_data_cb)(OUT int* mode ,OUT char* buffer, OUT int* size);
 	int view_base_x;
 	int view_base_y;
 	int view_width;

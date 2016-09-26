@@ -11,6 +11,8 @@
 
 #include <unistd.h>
 
+//#define FLOAT_BTN_EN
+
 
 
 
@@ -61,26 +63,109 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     count = 1;
-    timer = new QTimer(this);
+    //timer = new QTimer(this);
     cur_pos = new QPoint();
     ui->setupUi(this);
     /*no titile frame*/
     setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
-    /*black ground*/
-    setAutoFillBackground(true);
-    QPalette palette;
-    /*black  background*/
-    //palette.setColor(QPalette::Background, QColor(0,0,0));
-    /*transparent background*/
-    //palette.setColor(QPalette::Background, QColor(0x00,0xff,0x00,0x00));
-    //setPalette(palette);
-	this->paint_image(FULL_PATH(init.jpg));
+    /*tranparent bgd*/
+    setAttribute(Qt::WA_TranslucentBackground, true);
+
+    this->paint_image(FULL_PATH(init.jpg));
+
+#ifdef FLOAT_BTN_EN
+
+    ui->floatButton->installEventFilter(this);
+    ui->floatButton->setIcon(QIcon("./float-button.png"));
+    //ui->floatButton->hide();
+
+    ui->label->setPixmap(QPixmap("./group.png"));
+
+    ui->btnGroup->setStyleSheet("border: none");
+    ui->btnGroup->hide();
+
+    ui->appBtn->setIcon(83,15,1.5,new QPixmap("./le.png"),65,83,"乐车联");
+    ui->returnBtn->setIcon(83,15,1.5,new QPixmap("./back.png"),80,83,"返回");
+    ui->menuBtn->setIcon(83,15,1.5,new QPixmap("./menu.png"),83,83,"菜单");
+    ui->homeBtn->setIcon(83,15,1.5,new QPixmap("./home.png"),82,83,"桌面");
+
+    ui->centralWidget->setStyleSheet("background-color:transparent;");
+#endif
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+
+bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
+{
+#ifdef FLOAT_BTN_EN
+    static QPoint startPnt;
+    static QPoint pressPnt;
+    static QPoint lastPnt;
+    QMouseEvent* e = static_cast<QMouseEvent*>(evt);
+    startPnt = ui->floatButton->pos();
+    //qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
+    if(evt->type() == QEvent::MouseButtonPress)
+    {
+        qDebug("oMouseButtonPress (%d %d)\n",e->pos().x(),e->pos().y());
+        if(ui->floatButton->rect().contains(e->pos()) )
+        {
+            //qDebug("inPosition\n");
+            pressPnt = e->pos();
+            //qDebug("press pos(%d %d)\n",pressPnt.x(),pressPnt.y());
+        }
+    }
+    else if(evt->type() == QEvent::MouseMove)
+    {
+        movedFolatBtn = true;
+        qDebug("MouseMove (%d %d)\n",e->pos().x(),e->pos().y());
+        int dx = e->pos().x() - pressPnt.x();
+        int dy = e->pos().y()-pressPnt.y();
+        //qDebug("dx dy (%d %d)\n",dx,dy);
+        ui->floatButton->move(ui->floatButton->pos().x()+dx,ui->floatButton->pos().y()+dy);
+
+    }else if(evt->type() == QEvent::MouseButtonRelease)
+    {
+        if(!movedFolatBtn)
+        {
+            //show btngroup
+            ui->btnGroup->show();
+            //ui->label->show();
+            ui->floatButton->hide();
+
+        }
+        movedFolatBtn = false;
+        qDebug("MouseMouseButtonRelease (%d %d)\n",e->pos().x(),e->pos().y());
+        //qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
+        int x = startPnt.x();
+        int y = startPnt.y();
+        if(x < 0)
+        {
+            x = 0;
+        }
+        if( (x  + ui->floatButton->width()) > this->width())
+        {
+            x = startPnt.x() + this->width() - (x + ui->floatButton->width());
+        }
+        if(y < 0)
+        {
+            y = 0;
+        }
+        if((y  + ui->floatButton->height()) > this->height())
+        {
+            y = startPnt.y() + this->height() - (y + ui->floatButton->height());
+        }
+        ui->floatButton->move(x,y);
+    }
+
+    lastPnt = e->pos();
+#endif
+
+    return false;
 }
 
 //void MainWindow::on_pushButton_clicked()
@@ -147,9 +232,66 @@ void MainWindow::hide_ecolink()
 
 void MainWindow::paint_image(const char* file)
 {
-#if 1
+#ifdef FLOAT_BTN_EN
+    //ui->picLabel->setPixmap(QPixmap(file));
+    ui->picLabel->setPixmap(QPixmap(file));
+#else
     ui->label->setPixmap(QPixmap(file));
 #endif
+}
+
+#ifdef FLOAT_BTN_EN
+void MainWindow::on_floatButton_clicked()
+{
+    qDebug("on_floatButton_clicked\n");
+    //ui->btnGroup->hide();
+    //ui->floatButton->show();
+}
+
+void MainWindow::on_appBtn_clicked()
+{
+    qDebug("on_appBtn_clicked\n");
+    ui->btnGroup->hide();
+    //ui->label->hide();
+    ui->floatButton->show();
+}
+
+void MainWindow::on_returnBtn_clicked()
+{
+    qDebug("on_returnBtn_clicked\n");
+    ui->btnGroup->hide();
+    //ui->label->hide();
+    ui->floatButton->show();
+}
+
+void MainWindow::on_homeBtn_clicked()
+{
+    qDebug("on_homeBtn_clicked\n");
+    ui->btnGroup->hide();
+    //ui->label->hide();
+    ui->floatButton->show();
+}
+
+void MainWindow::on_menuBtn_clicked()
+{
+    qDebug("on_menuBtn_clicked\n");
+    ui->btnGroup->hide();
+    //ui->label->hide();
+    ui->floatButton->show();
+
+}
+#endif
+
+void MainWindow::enable_transparentBgd()
+{
+    m_fbc.Alpha("/dev/fb0",1,128);//show button
+    ui->picLabel->hide();
+}
+
+void MainWindow::disable_transparentBgd()
+{
+    //m_fbc.Alpha("/dev/fb0",1,128);//show button
+    //ui->picLabel->hide();
 }
 
 
