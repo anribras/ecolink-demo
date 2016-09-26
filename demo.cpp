@@ -44,6 +44,7 @@ void connect()
 #endif
 	//gstreamer_play();
 	gstreamer_init(0);
+    gstreamer_play();
 	//window->hide_ecolink();
 }
 
@@ -123,7 +124,7 @@ void st_changed(int* st)
 			DBG("AppForeground\n");
 			if(gstreamer_get_status() != PLAYING){
 				gstreamer_init(0);
-				gstreamer_play();
+                gstreamer_play();
 			}
 			break;
 		case AndroidScreenOn:

@@ -84,10 +84,9 @@ void gstreamer_release()
  * @brief push_in 
  * @param data
  * @param length
- * @param lock
  * @return 
  */
-int push_in(char* data_0 ,int length,pthread_mutex_t* lock){
+int push_in(char* data_0 ,int length){
 
 	//if(length < 500){
 		//DUMP_L(data,length);
@@ -120,13 +119,13 @@ int push_in(char* data_0 ,int length,pthread_mutex_t* lock){
 		//DBG("push buffer ok new\n");
 		gst_buffer_unref(buffer);
         //g_free(ptr);
-		pthread_mutex_unlock(lock);
+        //pthread_mutex_unlock(lock);
 		return true;
 	} else {
 		DBG("push buffer returned %d for %d bytes \n", signal_status, length);
 		gst_buffer_unref(buffer);
         //g_free(ptr);
-		pthread_mutex_unlock(lock);
+        //pthread_mutex_unlock(lock);
 		return false;
 	}
 }
@@ -136,7 +135,7 @@ int push_in(char* data_0 ,int length,pthread_mutex_t* lock){
  * @param length
  * @return
  */
-#if 1
+#if 0
 static char stream_buf[ 500 * 1024];
 static int buffered_len = 0;
 static int has_long_frame_buffered = FALSE;
@@ -154,55 +153,9 @@ int get_steam_data_cb(char* data, int length)
 {
 	if(state  == PLAYING){
         pthread_mutex_lock(&lock);
-		//DBG("get stream data ...length = %d\n",length);
-#if 1
-		int nal_header = *((int*)data);
-		//DUMP_L(data,10);
-		//if meets 0x41 0x65 save into a whole frame first
-		switch(status){
-			case HAS_FRAME_HEAD:
-				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-                push_in(stream_buf,buffered_len,&lock);
-				buffered_len = 0;
-				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-                status = 0;
-				break;
-			case MORE_DATA:
-				memcpy(stream_buf + buffered_len,data,length);
-				buffered_len +=  length;
-				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-				status = MORE_DATA;
-				pthread_mutex_unlock(&lock);
-				break;
-			default:
-				break;
-		}
-		if(nal_header == 0x01000000){
-			if((data[4] & 0x5)== 0x5 || 
-			   (data[4] & 0x1)== 0x1 ||
-			   (data[4] & 0x7)== 0x7 )
-			{
-				memcpy(stream_buf + buffered_len,data,length);
-				buffered_len +=  length;
-				//DBG("s:%d buffered_len = %d\n",status,buffered_len);
-				status = HAS_FRAME_HEAD;
-				pthread_mutex_unlock(&lock);
-				return 0;
-			}
-        }
-        else{
-            status = MORE_DATA;
-        }
-
-#else
-        memcpy(stream_buf + buffered_len,data,length);
-        buffered_len +=  length;
-        push_in(stream_buf,buffered_len,&lock);
-        buffered_len = 0;
         //DUMP_L(data,20);
-        //push_in(data,length,&lock);
-#endif
-
+        push_in(data,length);
+        pthread_mutex_unlock(&lock);
 	}
 }
 
@@ -442,11 +395,10 @@ void gstreamer_init(int need_scale)
 
     gst_element_set_state(pipeline,GST_STATE_NULL);
 
-	usleep(100000);
-	gstreamer_play();
-	usleep(100000);
+    //usleep(100000);
+    //usleep(100000);
 	gstreamer_start_loop();
-	usleep(100000);
+    //usleep(100000);
     return ;
 
 }
