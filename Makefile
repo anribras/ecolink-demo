@@ -36,7 +36,7 @@ DISTNAME      = ecolink.bin1.0.0
 DISTDIR = /home/d27/proj/ecolink-sdk/ecolink-demo/.tmp/ecolink.bin1.0.0
 LINK          = /home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-g++
 LFLAGS        = -march=armv7-a -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9 -mno-unaligned-access -mfloat-abi=hard -Wl,-O1 -Wl,-rpath,/usr/local/Qt-5.5.0/lib
-LIBS          = $(SUBLIBS) -Wl,-rpath-link=/home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/lib -Wl,-rpath-link=/home/d27/mx6q/usr/lib -Wl,-rpath-link=/home/d27/mx6q/lib -L/home/d27/mx6q/usr/lib -L/home/d27/mx6q/lib -L. -lplist -lecolink -lgstapp-0.10 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -pthread -lglib-2.0 -lxml2 -L/home/wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/lib -lQt5Widgets -L/home/hsae/LowDA/build/tmp/sysroots/mx6q/usr/lib -lQt5Gui -lQt5Core  -ldl -llttng-ust -lurcu-bp -lGLESv2 -lEGL -lGAL -lpthread 
+LIBS          = $(SUBLIBS) -Wl,-rpath-link=/home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/lib -Wl,-rpath-link=/home/d27/mx6q/usr/lib -Wl,-rpath-link=/home/d27/mx6q/lib -L/home/d27/mx6q/usr/lib -L/home/d27/mx6q/lib -L. -lplist -lecolink -lgstapp-0.10 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -pthread -lglib-2.0 -lxml2 -L/home/wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/lib -lQt5Widgets -L/home/hsae/LowDA/build/tmp/sysroots/mx6q/usr/lib -lQt5Gui -lQt5Core -ldl -llttng-ust -lurcu-bp -lGLESv2 -lEGL -lGAL -lpthread 
 AR            = /home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-ar cqs
 RANLIB        = 
 SED           = sed
@@ -1236,44 +1236,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		fbcontrol.h \
 		fbcontrol_global.h \
 		ui_mainwindow.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QLocale \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QVariant \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QAction \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qaction.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qactiongroup.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QApplication \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qapplication.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qcoreapplication.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qeventloop.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qdesktopwidget.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qguiapplication.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qinputmethod.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QButtonGroup \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qbuttongroup.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QGroupBox \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qgroupbox.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QHeaderView \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qheaderview.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractitemview.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractscrollarea.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qabstractitemmodel.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qitemselectionmodel.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractitemdelegate.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qstyleoption.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractspinbox.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qvalidator.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qregularexpression.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qslider.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractslider.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qstyle.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qtabbar.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qrubberband.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QPushButton \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qpushbutton.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qabstractbutton.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QWidget \
-		newpushbutton.h \
-		../../../../wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QPaintEvent \
 		debug.h \
 		stream.h \
 		../../../mx6q/usr/include/gstreamer-0.10/gst/gst.h \
@@ -1451,7 +1413,8 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../mx6q/usr/include/gstreamer-0.10/gst/gstcompat.h \
 		../../../mx6q/usr/include/gstreamer-0.10/gst/app/gstappsrc.h \
 		../../../mx6q/usr/include/gstreamer-0.10/gst/base/gstpushsrc.h \
-		../../../mx6q/usr/include/gstreamer-0.10/gst/base/gstbasesrc.h
+		../../../mx6q/usr/include/gstreamer-0.10/gst/base/gstbasesrc.h \
+		sdk.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 stream.o: stream.cpp stream.h \

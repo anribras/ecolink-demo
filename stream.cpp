@@ -5,8 +5,6 @@
 #include "debug.h"
 
 
-#define GS_FIFO_PATH "/tmp/gs_fifo"
-
 
 
 static int state = NULLSTATE;
@@ -51,7 +49,6 @@ void gstreamer_start_loop()
 /** @brief play  */
 void gstreamer_play()
 {
-	//gstreamer_start_loop();
 	if(pipeline)
 		gst_element_set_state (pipeline, GST_STATE_PLAYING);
 	state = PLAYING;
@@ -86,46 +83,33 @@ void gstreamer_release()
  * @param length
  * @return 
  */
-int push_in(char* data_0 ,int length){
-
-	//if(length < 500){
-		//DUMP_L(data,length);
-	//}
-	/*data must from stack!*/
-	GstFlowReturn signal_status;
+int push_in(char* data ,int length){
+	//DUMP_L(data,50);
+	GstFlowReturn signal_status = GST_FLOW_ERROR;
 	GstBuffer* buffer;
-#if 0
-	guint8 *ptr = (guint8 *)g_malloc(length);
-	g_assert(ptr);
-	memcpy(ptr,data,length);
-	buffer = gst_buffer_new();
-	gst_buffer_append_memory(buffer,
-	gst_memory_new_wrapped(
-		GST_MEMORY_FLAG_PHYSICALLY_CONTIGUOUS,
-		ptr, length, 0, length, ptr, g_free));
-#else
     guint8 *ptr = (guint8 *)g_malloc(length);
+    //guint8 ptr[500 * 1024]; //can' t work 
+	//so weird the ptr memory allocation must use g_malloc and must not g_free after
+	//push-buffer ! This might cause memory leaking.
     g_assert(ptr);
-    memcpy(ptr,data_0,length);
+    memcpy(ptr,data,length);
     buffer = gst_buffer_new_and_alloc(length);
     GST_BUFFER_MALLOCDATA(buffer) = ptr;
     GST_BUFFER_SIZE(buffer) = length;
     GST_BUFFER_DATA(buffer) = GST_BUFFER_MALLOCDATA(buffer);
-    //gst_buffer_set_data(buffer,(guint8*)ptr,length);
-#endif
+	GST_BUFFER_FREE_FUNC(buffer) = g_free;
+    //gst_buffer_set_data(buffer,(guint8*)data,length);  
 	g_signal_emit_by_name(src, "push-buffer", buffer, &signal_status);
-	//gst_app_src_push_buffer(src,buffer);
+	//signal_status = gst_app_src_push_buffer(src,buffer);//can`t work
 	if(GST_FLOW_OK == signal_status) {
 		//DBG("push buffer ok new\n");
 		gst_buffer_unref(buffer);
-        //g_free(ptr);
-        //pthread_mutex_unlock(lock);
+        //g_free(ptr);// must not 
 		return true;
 	} else {
 		DBG("push buffer returned %d for %d bytes \n", signal_status, length);
-		gst_buffer_unref(buffer);
         //g_free(ptr);
-        //pthread_mutex_unlock(lock);
+		gst_buffer_unref(buffer);
 		return false;
 	}
 }
@@ -153,7 +137,6 @@ int get_steam_data_cb(char* data, int length)
 {
 	if(state  == PLAYING){
         pthread_mutex_lock(&lock);
-        //DUMP_L(data,20);
         push_in(data,length);
         pthread_mutex_unlock(&lock);
 	}
@@ -304,14 +287,13 @@ void gstreamer_init(int need_scale)
     if(!pipeline ) {
         DBG("create pipeline element fail\n");
     }
-    src = (GstAppSrc *)gst_element_factory_make("appsrc","src0");
+    src = (GstAppSrc *)gst_element_factory_make("appsrc","src");
     if(!src) {
         DBG("create src fail\n");
     }
-    g_object_set(G_OBJECT(src), "is-live", TRUE, NULL);
-    g_object_set(G_OBJECT(src), "block", TRUE, NULL);
-    //g_object_set(G_OBJECT(src), "blocksize", 4096 * 20, NULL);
-
+    g_object_set(G_OBJECT(src), "is-live", true, NULL);
+    //g_object_set(G_OBJECT(src), "blocksize", 1024 * 100, NULL);
+    g_object_set(G_OBJECT(src), "block", true, NULL);
     //g_object_set(G_OBJECT(src), "do-timestamp", TRUE, NULL);
     gst_app_src_set_stream_type(src, GST_APP_STREAM_TYPE_STREAM);
 	gst_app_src_set_max_bytes(src,0);
@@ -337,25 +319,6 @@ void gstreamer_init(int need_scale)
     if(!converter) {
         DBG("create converter fail\n");
     }
-
-	if(need_scale){
-		rate = gst_element_factory_make("videorate","rate");
-		if(!rate) {
-			DBG("create rate fail\n");
-		}
-		scale = gst_element_factory_make("videoscale","scale");
-		if(!scale) {
-			DBG("create scale fail\n");
-		}
-		filter = gst_element_factory_make("capsfilter","filter");
-		if(!filter) {
-			DBG("create rate fail\n");
-		}
-	   //GstCaps *caps = gst_caps_from_string ("video/x-raw,framerate=25/1");
-	   GstCaps *caps = gst_caps_from_string ("video/x-raw,height=720,width=1280");
-	   g_object_set (filter, "caps", caps, NULL);
-	}
-
     sink = gst_element_factory_make("mfw_v4lsink","sink");
     //sink = gst_element_factory_make("mfw_isink","sink");
     if(!sink) {
@@ -363,31 +326,17 @@ void gstreamer_init(int need_scale)
     }
     /*sink sync false*/
     g_object_set(sink, "sync", false, "async",false,NULL);
-    /*sink ivi-id value*/
-
     /*register bus*/
     bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
     gst_bus_add_watch(bus, bus_callback, loop);
     gst_object_unref(bus);
-
     /*add element to pipeline*/
-	if(need_scale){
-		gst_bin_add_many(GST_BIN(pipeline),(GstElement* )src,parser,decoder,converter,scale,filter,sink,NULL);
-		/*link all*/
-		if(!gst_element_link_many((GstElement* )src,parser,decoder,converter,scale,filter,sink,NULL))
-			DBG("pipeline  link fail\n");
-		else
-			DBG("pipeline link ok\n");
-	}
-	else{
-		gst_bin_add_many(GST_BIN(pipeline),(GstElement* )src,parser,decoder,sink,NULL);
-		/*link all*/
-		if(!gst_element_link_many((GstElement* )src,parser,decoder,sink,NULL))
-			DBG("pipeline link fail\n");
-		else
-			DBG("pipeline link ok\n");
-	}
-
+	gst_bin_add_many(GST_BIN(pipeline),(GstElement* )src,parser,decoder,sink,NULL);
+	/*link all*/
+	if(!gst_element_link_many((GstElement* )src,parser,decoder,sink,NULL))
+		DBG("pipeline link fail\n");
+	else
+		DBG("pipeline link ok\n");
     /*queue need data!*/
     g_signal_connect(src, "need-data", G_CALLBACK(start_feed), (gpointer)NULL);
     /*queue full*/
@@ -395,10 +344,7 @@ void gstreamer_init(int need_scale)
 
     gst_element_set_state(pipeline,GST_STATE_NULL);
 
-    //usleep(100000);
-    //usleep(100000);
 	gstreamer_start_loop();
-    //usleep(100000);
     return ;
 
 }
@@ -419,7 +365,6 @@ void overlay(void)
     g_object_set (playbin, "uri", "/home/root/ecolink-ui/ecolink-ui/image/1280x800.h264", NULL);
     /*before doing this maksure, pipeline playing state =  PAUSE or null*/
     gst_video_overlay_set_window_handle(GST_VIDEO_OVERLAY(videosink), w.winId());
-
     GstStateChangeReturn sret = gst_element_set_state (playbin,GST_STATE_PLAYING);
 #endif
 

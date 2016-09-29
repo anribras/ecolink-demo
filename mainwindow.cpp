@@ -10,6 +10,7 @@
 #include <QImage>
 
 #include <unistd.h>
+#include "sdk.h"
 
 //#define FLOAT_BTN_EN
 
@@ -117,6 +118,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
             //qDebug("inPosition\n");
             pressPnt = e->pos();
             //qDebug("press pos(%d %d)\n",pressPnt.x(),pressPnt.y());
+            disable_touchevent();
         }
     }
     else if(evt->type() == QEvent::MouseMove)
@@ -160,6 +162,8 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
             y = startPnt.y() + this->height() - (y + ui->floatButton->height());
         }
         ui->floatButton->move(x,y);
+
+        enable_touchevent();
     }
 
     lastPnt = e->pos();
@@ -224,10 +228,12 @@ void MainWindow::stop_get_image()
 void MainWindow::show_ecolink()
 {
     this->show();
+    ui->picLabel->show();
 }
 void MainWindow::hide_ecolink()
 {
     this->hide();
+    ui->picLabel->hide();
 }
 
 void MainWindow::paint_image(const char* file)
@@ -254,6 +260,8 @@ void MainWindow::on_appBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+    extra_event(EcolinkMainpage);
+    disable_transparentBgd();//restore again;
 }
 
 void MainWindow::on_returnBtn_clicked()
@@ -262,6 +270,8 @@ void MainWindow::on_returnBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+    extra_event(PhoneReturnBtn);
+
 }
 
 void MainWindow::on_homeBtn_clicked()
@@ -270,6 +280,7 @@ void MainWindow::on_homeBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+    extra_event(PhoneDesktopBtn);
 }
 
 void MainWindow::on_menuBtn_clicked()
@@ -278,19 +289,20 @@ void MainWindow::on_menuBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+    extra_event(PhoneMenuBtn);
 
 }
 #endif
 
 void MainWindow::enable_transparentBgd()
 {
-    m_fbc.Alpha("/dev/fb0",1,128);//show button
+    m_fbc.Alpha("/dev/fb0",1,128);//display button
     ui->picLabel->hide();
 }
 
 void MainWindow::disable_transparentBgd()
 {
-    //m_fbc.Alpha("/dev/fb0",1,128);//show button
+    m_fbc.Alpha("/dev/fb0",1,0);//display stream fully
     //ui->picLabel->hide();
 }
 

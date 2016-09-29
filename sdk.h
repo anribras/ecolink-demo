@@ -120,7 +120,10 @@ typedef enum
 
 typedef enum
 {
-	BacktoMainpage = 0,
+	EcolinkMainpage = 0,
+	PhoneDesktopBtn,
+	PhoneReturnBtn,
+	PhoneMenuBtn,
 	/*
 	 * Reserved
 	 * */
@@ -201,6 +204,12 @@ int disable_touchevent();
  * @return 
  */
 int extra_event(EXTRA_EVENTS e);
+/**
+ * @brief enable_link_iosstream_transfer 
+ * @return 
+ */
+int enable_link_iosstream_transfer();
+
 
 #ifdef __cplusplus
 }
