@@ -37,11 +37,11 @@ class MainWindow : public QMainWindow
 public:
     //CRingBuf m_rbuf;
     unsigned int count;
-    QTimer *timer;
+    //QTimer *timer;
     QPoint *cur_pos;
-    QPixmap m_pix;
-    QPixmap m_pix1;
-    QImage m_im;
+    //QPixmap m_pix;
+    //QPixmap m_pix1;
+    //QImage m_im;
     Fbcontrol m_fbc;
     /**
      * method

@@ -118,11 +118,11 @@ void st_changed(int* st)
 			break;
 		case IosAppBackground:
 			DBG("IosAppBackground\n");
-			disable_link_transfer();
 			//gstreamer_pause();
 			//gstreamer_release();
-			window->m_fbc.Alpha("/dev/fb0",1,255);
+			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
+			disable_link_transfer();
 			window->show_ecolink();
 			break;
 		case AppForeground:

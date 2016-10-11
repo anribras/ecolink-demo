@@ -12,7 +12,7 @@
 #include <unistd.h>
 #include "sdk.h"
 
-//#define FLOAT_BTN_EN
+#define FLOAT_BTN_EN
 
 
 
@@ -77,18 +77,18 @@ MainWindow::MainWindow(QWidget *parent) :
 #ifdef FLOAT_BTN_EN
 
     ui->floatButton->installEventFilter(this);
-    ui->floatButton->setIcon(QIcon("./float-button.png"));
-    //ui->floatButton->hide();
+    ui->floatButton->setIcon(QIcon(FULL_PATH(float-button.png)));
+    ui->floatButton->hide();
 
-    ui->label->setPixmap(QPixmap("./group.png"));
+    ui->label->setPixmap(QPixmap(FULL_PATH(group.png)));
 
     ui->btnGroup->setStyleSheet("border: none");
     ui->btnGroup->hide();
 
-    ui->appBtn->setIcon(83,15,1.5,new QPixmap("./le.png"),65,83,"乐车联");
-    ui->returnBtn->setIcon(83,15,1.5,new QPixmap("./back.png"),80,83,"返回");
-    ui->menuBtn->setIcon(83,15,1.5,new QPixmap("./menu.png"),83,83,"菜单");
-    ui->homeBtn->setIcon(83,15,1.5,new QPixmap("./home.png"),82,83,"桌面");
+    ui->appBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(le.png)),65,83,"乐车联");
+    ui->returnBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(back.png)),80,83,"返回");
+    ui->menuBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(menu.png)),83,83,"菜单");
+    ui->homeBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(home.png)),82,83,"桌面");
 
     ui->centralWidget->setStyleSheet("background-color:transparent;");
 #endif
@@ -297,13 +297,15 @@ void MainWindow::on_menuBtn_clicked()
 void MainWindow::enable_transparentBgd()
 {
     m_fbc.Alpha("/dev/fb0",1,128);//display button
-    ui->picLabel->hide();
+    ui->picLabel->show();
+	ui->floatButton->show();
 }
 
 void MainWindow::disable_transparentBgd()
 {
     m_fbc.Alpha("/dev/fb0",1,0);//display stream fully
-    //ui->picLabel->hide();
+    ui->picLabel->hide();
+	ui->floatButton->hide();
 }
 
 
