@@ -21,31 +21,29 @@ extern MainWindow* window;
 
 static int test_fd;
 static int test_fd1;
-static int device = 0;
 
 void connect()
 {
 	DBG("callback ->%s\n",__FUNCTION__);
 	enable_link_transfer();
 #ifdef SAVE_STREAM_TO_FILE
-        test_fd = open("test.h264",O_RDWR | O_CREAT,0664);
-        if(test_fd < 0) {
-            DBG("test.h264 open fail\n");
-            return;
-        } else {
-            DBG("test.h264 open ok\n");
-        }
-		test_fd1 = open("size.txt",O_RDWR | O_CREAT,0664);
-        if(test_fd1 < 0) {
-            DBG("size.txt open fail\n");
-            return;
-        } else {
-            DBG("size.txt open ok\n");
-        }
+	test_fd = open("test.h264",O_RDWR | O_CREAT,0664);
+	if(test_fd < 0) {
+		DBG("test.h264 open fail\n");
+		return;
+	} else {
+		DBG("test.h264 open ok\n");
+	}
+	test_fd1 = open("size.txt",O_RDWR | O_CREAT,0664);
+	if(test_fd1 < 0) {
+		DBG("size.txt open fail\n");
+		return;
+	} else {
+		DBG("size.txt open ok\n");
+	}
 #endif
 	gstreamer_init(0);
     gstreamer_play();
-    //window->m_fbc.Alpha("/dev/fb0",1,128);
 }
 
 void disconnect()
@@ -82,7 +80,6 @@ void st_changed(int* st)
             window->paint_image(FULL_PATH(help-android.jpg));
 			break;
 		case AndroidOnline:
-			device = 0;
 			DBG("AndroidOnline\n");
             window->paint_image(FULL_PATH(connecting.jpg));
 			break;
@@ -100,8 +97,6 @@ void st_changed(int* st)
 			break;
 		case IosPlugIn:
 			DBG("IosPlugIn\n");
-			device = 1;
-			DBG("device = %d\n",device);
 			window->paint_image(FULL_PATH(connecting.jpg));
             window->show_ecolink();
 			break;
@@ -122,22 +117,24 @@ void st_changed(int* st)
 			//gstreamer_release();
 			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
-			disable_link_transfer();
 			window->show_ecolink();
 			break;
-		case AppForeground:
-			DBG("device = %d\n",device);
-			if(gstreamer_get_status() != PLAYING){
-				gstreamer_init(0);
-                gstreamer_play();
-			}
-			if(device){
-				DBG("IosAppForeground\n"); 
-				enable_link_iosstream_transfer();
-			}
-			else{
-				DBG("AndroidAppForeground\n"); 
-			}
+		case IosCallingin:
+			DBG("IosCallingin\n");
+			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+            window->paint_image(FULL_PATH(backgroundtip.jpg));
+			window->show_ecolink();
+			break;
+		case AndroidAppForeground:
+			DBG("AndroidAppForeground\n"); 
+            window->disable_transparentBgd();
+			break;
+		case IosAppForeground:
+			DBG("IosAppForeground\n"); 
+			//if(gstreamer_get_status() != PLAYING){
+				//gstreamer_init(0);
+                //gstreamer_play();
+			//}
             window->disable_transparentBgd();
 			break;
 		case AndroidScreenOn:
@@ -152,6 +149,10 @@ void st_changed(int* st)
             break;
 		case AndroidDisconnected:
 			DBG("AndroidDisconnected\n");
+			break;
+		case IosConnected:
+			DBG("IosConnected\n");
+			window->paint_image(FULL_PATH(black.jpg));
 			break;
 		case AndroidConnected:
 			window->paint_image(FULL_PATH(black.jpg));

@@ -56,9 +56,12 @@ typedef enum
 
 	/*
 	 * Android home button disapear 
-	 * IOS resume data transferring  
 	 * */
-	AppForeground,
+	AndroidAppForeground,
+
+
+	/*IOS resume data transferring  */
+	IosAppForeground,
 
 	/*
 	 * show home button that used to go back to homepage of ecolink app
@@ -73,7 +76,7 @@ typedef enum
 	/*
 	 * 	disconnected status ,set after disconnected_cb
 	 * 	* */
-	AndroidDisconnected = 10,
+	AndroidDisconnected = 11,
 
 	/*
 	 * Mostly show init.jpg
@@ -86,11 +89,14 @@ typedef enum
 	IosPlugOut,
 
 	/*
-	 * Data transferring will be paused.
-	 * we better stop data processing
 	 * Must show the iphone backgroundtip.jpg
 	 * */
-	IosAppBackground = 13,
+	IosAppBackground = 14,
+
+	/*
+	 * Must show the iphone callingin.jpg
+	 * */
+	IosCallingin,
 
 	/*
 	 * Mostly show help-ios.jpg
@@ -105,7 +111,7 @@ typedef enum
 	/*
 	 * 	disconnected status ,set after disconnected_cb
 	 * 	* */
-	IosDisconnected = 16,
+	IosDisconnected ,
 
 
 	Reserved,

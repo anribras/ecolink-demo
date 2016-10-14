@@ -12,8 +12,10 @@
 #include <unistd.h>
 #include "sdk.h"
 
-#define FLOAT_BTN_EN
 
+
+#define FLOAT_BTN_EN
+#define CLIENT_TEST_EN
 
 
 
@@ -223,16 +225,27 @@ void MainWindow::start_get_image()
 
 void MainWindow::stop_get_image()
 {
+
 }
+
 
 void MainWindow::show_ecolink()
 {
+	/*
+	 * depends on!
+	 * 1. only qt UI
+	 * 2. stream is foreground
+	 * 3. UI and stream all foreground
+	 * */
     this->show();
     ui->picLabel->show();
+	DBG("show_ecolink\n");
 }
 void MainWindow::hide_ecolink()
 {
-    this->hide();
+	DBG("hide_ecolink\n");
+    //m_fbc.Alpha("/dev/fb0",1,255);//only qt display = close stream
+    this->hide();//hide qt display
     ui->picLabel->hide();
 }
 
@@ -297,7 +310,7 @@ void MainWindow::on_menuBtn_clicked()
 void MainWindow::enable_transparentBgd()
 {
     m_fbc.Alpha("/dev/fb0",1,128);//display button
-    ui->picLabel->show();
+    ui->picLabel->hide();
 	ui->floatButton->show();
 }
 
