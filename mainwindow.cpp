@@ -11,11 +11,11 @@
 
 #include <unistd.h>
 #include "sdk.h"
+#include "client.h"
 
 
 
 #define FLOAT_BTN_EN
-#define CLIENT_TEST_EN
 
 
 
@@ -64,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
+    wnd_is_showing =false;
     count = 1;
     //timer = new QTimer(this);
     cur_pos = new QPoint();
@@ -111,7 +111,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
     static QPoint lastPnt;
     QMouseEvent* e = static_cast<QMouseEvent*>(evt);
     startPnt = ui->floatButton->pos();
-    //qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
+    qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
     if(evt->type() == QEvent::MouseButtonPress)
     {
         qDebug("oMouseButtonPress (%d %d)\n",e->pos().x(),e->pos().y());
@@ -228,8 +228,12 @@ void MainWindow::stop_get_image()
 
 }
 
+bool MainWindow::get_wnd_display_status()
+{
+    return wnd_is_showing;
+}
 
-void MainWindow::show_ecolink()
+void MainWindow::show_ecolink(bool r)
 {
 	/*
 	 * depends on!
@@ -237,16 +241,38 @@ void MainWindow::show_ecolink()
 	 * 2. stream is foreground
 	 * 3. UI and stream all foreground
 	 * */
-    this->show();
-    ui->picLabel->show();
-	DBG("show_ecolink\n");
+	DBG("show_ecolink \n");
+    static bool firsttime = true;
+    if(firsttime == true)
+        this->show();
+    firsttime = false;
+	this->resize(gWidth,gHeight);
+	enable_touchevent();
+	if(gstreamer_get_status() == PLAYING){
+        m_fbc.Alpha("/dev/fb0",1,0);
+	}
+    else
+    {
+        m_fbc.Alpha("/dev/fb0",1,255);
+    }
+    if(r == true)
+        send_response("displayState","1");
+    wnd_is_showing = true;
 }
-void MainWindow::hide_ecolink()
+void MainWindow::hide_ecolink(bool r)
 {
+    //this->hide();
+	this->resize(0,0);
+	usleep(500000);
+	if(gstreamer_get_status() == PLAYING){
+        m_fbc.Alpha("/dev/fb0",1,255);//hide stream
+	}
+    this->resize(0,0);
+	disable_touchevent(); 
 	DBG("hide_ecolink\n");
-    //m_fbc.Alpha("/dev/fb0",1,255);//only qt display = close stream
-    this->hide();//hide qt display
-    ui->picLabel->hide();
+    if(r == true)
+        send_response("displayState","2");
+    wnd_is_showing = false;
 }
 
 void MainWindow::paint_image(const char* file)
@@ -274,7 +300,7 @@ void MainWindow::on_appBtn_clicked()
     //ui->label->hide();
     ui->floatButton->show();
     extra_event(EcolinkMainpage);
-    disable_transparentBgd();//restore again;
+    //disable_transparentBgd();//restore again;
 }
 
 void MainWindow::on_returnBtn_clicked()
@@ -303,21 +329,21 @@ void MainWindow::on_menuBtn_clicked()
     //ui->label->hide();
     ui->floatButton->show();
     extra_event(PhoneMenuBtn);
-
 }
 #endif
 
+
 void MainWindow::enable_transparentBgd()
 {
-    m_fbc.Alpha("/dev/fb0",1,128);//display button
-    ui->picLabel->hide();
+    ui->picLabel->resize(0,0);
 	ui->floatButton->show();
+    m_fbc.Alpha("/dev/fb0",1,128);//display button
 }
 
 void MainWindow::disable_transparentBgd()
 {
-    m_fbc.Alpha("/dev/fb0",1,0);//display stream fully
-    ui->picLabel->hide();
+    m_fbc.Alpha("/dev/fb1",1,255);//display stream fully
+    ui->picLabel->resize(gWidth,gHeight);
 	ui->floatButton->hide();
 }
 

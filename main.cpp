@@ -97,10 +97,13 @@ void* thread_client(void* para)
     addr.sin_family = AF_INET;
     addr.sin_port = htons(6666);
     addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+CONNECT:
     int fd = socket(AF_INET, SOCK_STREAM, 0);
     ret = connect(fd, (struct sockaddr*)&addr, sizeof(addr));
     if(ret == -1) {
-        DBG("test client connect error\n");
+        DBG("test client connect not ok\n");
+		//sleep(1);
+		//goto CONNECT;
         //close(fd);
         return NULL;
     } else {
@@ -124,16 +127,24 @@ void* thread_client(void* para)
                 DBG("client recv error\n");
                 //close(fd);
                 return NULL;
-            } else {
+            } 
+			else if(length == 0){
+                DBG("test client socket broken\n");
+				return NULL;
+			}
+			else {
                 DBG("client recv :%s\n",msg_t.MsgBuf);
                 if(!strcmp(msg_t.MsgBuf,"s")) {
 					DBG("client recv show\n");
-					window->show_ecolink();
+                    window->show_ecolink(false);
                 } else if(!strcmp(msg_t.MsgBuf,"h")) {
 					DBG("client recv hide\n");
-					window->hide_ecolink();
+                    window->hide_ecolink(false);
                 } else if(!strcmp(msg_t.MsgBuf,"q")) {
 					DBG("client recv quit\n");
+                } else if(!strcmp(msg_t.MsgBuf,"t")) {
+					DBG("transparent\n");
+					window->paint_image(FULL_PATH(black.png));
                 } else {
                     system((const char*)msg_t.MsgBuf);
                     //DBG("doing nothing\n");
@@ -170,7 +181,7 @@ int main(int argc, char *argv[])
 	 * */
     //window->m_rbuf.set_mainwindow_ptr(&w);
     //window->m_rbuf.init();
-    window->show();
+    window->hide_ecolink(true);
 	/*
 	 * sdk init
 	 * */
@@ -187,13 +198,11 @@ int main(int argc, char *argv[])
 	/*
 	 * view size
 	 * */
-	cfg.view_width= 1280;
-	cfg.view_height= 720;
-	/*
-	 * screen size
+	cfg.view_width= gWidth;
+	cfg.view_height= gHeight; /* * screen size
 	 * */
-	cfg.sc_width = 1280;
-	cfg.sc_height = 720;
+	cfg.sc_width = gWidth;
+	cfg.sc_height = gHeight;
 
 
 	if(init_link(&cfg))
@@ -209,6 +218,12 @@ int main(int argc, char *argv[])
 	 * */
 	pthread_t id;
 	pthread_create(&id,NULL,thread_client,NULL);
+
+    /*
+     * main client
+    */
+    extern void start_mainclient();
+    start_mainclient();
 
 
     DBG("qt5 ecolink start\n");

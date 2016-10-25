@@ -24,6 +24,8 @@
 #define FLOAT_BTN_EN
 
 #define FULL_PATH(filename) "/usr/app/phonelink/ecolink/res/le/images/"#filename""
+#define gWidth (1280)
+#define gHeight (720)
 
 namespace Ui
 {
@@ -43,6 +45,7 @@ public:
     //QPixmap m_pix1;
     //QImage m_im;
     Fbcontrol m_fbc;
+
     /**
      * method
      * */
@@ -52,13 +55,15 @@ public:
     void start_get_image();
     void stop_get_image();
     void stop_decode_paint();
-    void show_ecolink();
-    void hide_ecolink();
+    void show_ecolink(bool needRp);
+    void hide_ecolink(bool needRp);
+    bool get_wnd_display_status();
 	int get_mirror_status();
 	void set_mirror_status(int flag);
     void enable_transparentBgd();
     void disable_transparentBgd();
 private slots:
+
     void qt_draw_image();
     void gl_draw_image();
 #ifdef FLOAT_BTN_EN
@@ -73,6 +78,7 @@ private:
     Ui::MainWindow *ui;
     void thread_consume(void* pdata);
 protected:
+    bool wnd_is_showing;
     bool pressedFolatBtn;
     bool movedFolatBtn;
     bool releasedFolatBtn;

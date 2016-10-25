@@ -13,6 +13,7 @@
 #include "stream.h"
 #include "mainwindow.h"
 #include "sdk.h"
+#include "client.h"
 
 
 //#define SAVE_STREAM_TO_FILE
@@ -22,8 +23,11 @@ extern MainWindow* window;
 static int test_fd;
 static int test_fd1;
 
+
+
 void connect()
 {
+
 	DBG("callback ->%s\n",__FUNCTION__);
 	enable_link_transfer();
 #ifdef SAVE_STREAM_TO_FILE
@@ -42,18 +46,34 @@ void connect()
 		DBG("size.txt open ok\n");
 	}
 #endif
-	gstreamer_init(0);
-    gstreamer_play();
+    if(gstreamer_get_status() != PLAYING){
+        gstreamer_init(0);
+        gstreamer_play();
+    }
+    if(window->get_wnd_display_status() == true)
+    {
+
+    }
+    else
+    {
+        DBG("connected but stream no need show\n");
+        window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+    }
+
+    send_response("devConnectState","devConnected");
 }
 
 void disconnect()
 {
+    window->hide_ecolink(true);
+    send_response("devConnectState","devDisconnected");
 	DBG("callback ->%s\n",__FUNCTION__);
 	window->paint_image(FULL_PATH(init.jpg));
 	disable_link_transfer();
-	gstreamer_pause();
-	gstreamer_release();
-	window->show_ecolink();
+	if(gstreamer_get_status() == PLAYING){
+		gstreamer_pause();
+		gstreamer_release();
+	}
 #ifdef SAVE_STREAM_TO_FILE
         if(test_fd)
             close(test_fd);
@@ -76,11 +96,14 @@ void st_changed(int* st)
 	switch(*st)
 	{
 		case AndroidAdbNotOpened:
+            send_response("devConnectState","devAdbnotopened");
 			DBG("AndroidAdbNotOpened\n");
             window->paint_image(FULL_PATH(help-android.jpg));
 			break;
-		case AndroidOnline:
-			DBG("AndroidOnline\n");
+        case AndroidOnline:
+            send_response("devConnectState","devPlugin");
+            //window->show_ecolink();
+            DBG("AndroidOnline\n");
             window->paint_image(FULL_PATH(connecting.jpg));
 			break;
 		case AndroidAppLunchFail:
@@ -89,16 +112,19 @@ void st_changed(int* st)
 			break;
 		case DeviceOffline:
 			DBG("DeviceOffline\n");
+            send_response("devConnectState","devPlugout");
             window->paint_image(FULL_PATH(init.jpg));
+            //window->hide_ecolink(true);
 			break;
 		case AndroidPlugoutWhenInstalling:
 			DBG("AndroidPlugoutWhenInstalling\n");
 			window->paint_image(FULL_PATH(init.jpg));
 			break;
 		case IosPlugIn:
+            send_response("devConnectState","devPlugin");
 			DBG("IosPlugIn\n");
 			window->paint_image(FULL_PATH(connecting.jpg));
-            window->show_ecolink();
+            //window->show_ecolink();
 			break;
 		case IosPlugOut:
 			DBG("IosPlugOut\n");
@@ -106,6 +132,7 @@ void st_changed(int* st)
 			break;
 		case IosAppNotReady:
 			DBG("IosAppNotReady\n");
+            send_response("devConnectState","devIosnotready");
             window->paint_image(FULL_PATH(help-ios.jpg));
 			break;
 		case IosDisconnected:
@@ -113,29 +140,44 @@ void st_changed(int* st)
 			break;
 		case IosAppBackground:
 			DBG("IosAppBackground\n");
-			//gstreamer_pause();
-			//gstreamer_release();
-			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
-			window->show_ecolink();
+            //window->show_ecolink();
+			if(gstreamer_get_status() == PLAYING){
+                gstreamer_pause();
+                gstreamer_release();
+			}
+            //window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
 			break;
-		case IosCallingin:
+        case IosCallingin:
 			DBG("IosCallingin\n");
-			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
-			window->show_ecolink();
+            //window->show_ecolink();
+			if(gstreamer_get_status() == PLAYING){
+                gstreamer_pause();
+                gstreamer_release();
+			}
 			break;
 		case AndroidAppForeground:
 			DBG("AndroidAppForeground\n"); 
-            window->disable_transparentBgd();
+            //window->disable_transparentBgd();
 			break;
 		case IosAppForeground:
-			DBG("IosAppForeground\n"); 
-			//if(gstreamer_get_status() != PLAYING){
-				//gstreamer_init(0);
-                //gstreamer_play();
-			//}
-            window->disable_transparentBgd();
+            DBG("IosAppForeground\n");
+            if(gstreamer_get_status() != PLAYING){
+                gstreamer_init(0);
+                gstreamer_play();
+            }
+            if(window->get_wnd_display_status() == true)
+            {
+
+            }
+            else
+            {
+                DBG("window hide no need show stream");
+                window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+            }
+
+            //window->disable_transparentBgd();
 			break;
 		case AndroidScreenOn:
 			DBG("AndroidScreenOn\n");
@@ -145,17 +187,17 @@ void st_changed(int* st)
 			break;
 		case AndroidAppBackground:
 			DBG("AndroidAppBackground\n");
-            window->enable_transparentBgd();
+            //window->enable_transparentBgd();
             break;
 		case AndroidDisconnected:
 			DBG("AndroidDisconnected\n");
 			break;
 		case IosConnected:
 			DBG("IosConnected\n");
-			window->paint_image(FULL_PATH(black.jpg));
+			window->paint_image(FULL_PATH(black.png));
 			break;
 		case AndroidConnected:
-			window->paint_image(FULL_PATH(black.jpg));
+			window->paint_image(FULL_PATH(black.png));
 			DBG("AndroidConnected\n");
 			break;
 		default:
