@@ -18,12 +18,11 @@
 #include <QEvent>
 #include <QIcon>
 
-#include "fbcontrol.h"
 
 
 #define FLOAT_BTN_EN
 
-#define FULL_PATH(filename) "/usr/app/phonelink/ecolink/res/le/images/"#filename""
+#define FULL_PATH(filename) "./res/le/images/"#filename""
 
 namespace Ui
 {
@@ -42,7 +41,7 @@ public:
     //QPixmap m_pix;
     //QPixmap m_pix1;
     //QImage m_im;
-    Fbcontrol m_fbc;
+    //Fbcontrol m_fbc;
     /**
      * method
      * */

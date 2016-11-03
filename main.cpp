@@ -164,7 +164,8 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     MainWindow w;
     window = &w;
-	signal(SIGINT, on_signal);
+	TRACE_GOGOGO(ecolink);
+	//signal(SIGINT, on_signal);
 	/*
 	 * ringbuf 
 	 * */
@@ -201,14 +202,14 @@ int main(int argc, char *argv[])
 	/*
 	 *touchscreen event init
 	 */
-	if(init_touchevent("/dev/input/event0"))
-		exit(-1);
+	//if(init_touchevent("/dev/input/event0"))
+		//exit(-1);
 
 	/*
 	 * test client
 	 * */
-	pthread_t id;
-	pthread_create(&id,NULL,thread_client,NULL);
+	//pthread_t id;
+	//pthread_create(&id,NULL,thread_client,NULL);
 
 
     DBG("qt5 ecolink start\n");

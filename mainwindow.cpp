@@ -70,7 +70,7 @@ MainWindow::MainWindow(QWidget *parent) :
     cur_pos = new QPoint();
     ui->setupUi(this);
     /*no titile frame*/
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
+    //setWindowFlags(Qt::FramelessWindowHint |Qt::WindowStaysOnTopHint );
     /*tranparent bgd*/
     setAttribute(Qt::WA_TranslucentBackground, true);
 
@@ -80,7 +80,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->floatButton->installEventFilter(this);
     ui->floatButton->setIcon(QIcon(FULL_PATH(float-button.png)));
-    ui->floatButton->hide();
+    ui->floatButton->show();
 
     ui->label->setPixmap(QPixmap(FULL_PATH(group.png)));
 
@@ -309,14 +309,14 @@ void MainWindow::on_menuBtn_clicked()
 
 void MainWindow::enable_transparentBgd()
 {
-    m_fbc.Alpha("/dev/fb0",1,128);//display button
+    //m_fbc.Alpha("/dev/fb0",1,128);//display button
     ui->picLabel->hide();
 	ui->floatButton->show();
 }
 
 void MainWindow::disable_transparentBgd()
 {
-    m_fbc.Alpha("/dev/fb0",1,0);//display stream fully
+    //m_fbc.Alpha("/dev/fb0",1,0);//display stream fully
     ui->picLabel->hide();
 	ui->floatButton->hide();
 }

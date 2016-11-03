@@ -115,13 +115,13 @@ void st_changed(int* st)
 			DBG("IosAppBackground\n");
 			//gstreamer_pause();
 			//gstreamer_release();
-			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+			//window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
 			window->show_ecolink();
 			break;
 		case IosCallingin:
 			DBG("IosCallingin\n");
-			window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+			//window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             window->paint_image(FULL_PATH(backgroundtip.jpg));
 			window->show_ecolink();
 			break;
@@ -152,10 +152,10 @@ void st_changed(int* st)
 			break;
 		case IosConnected:
 			DBG("IosConnected\n");
-			window->paint_image(FULL_PATH(black.jpg));
+			//window->paint_image(FULL_PATH(black.jpg));
 			break;
 		case AndroidConnected:
-			window->paint_image(FULL_PATH(black.jpg));
+			//window->paint_image(FULL_PATH(black.jpg));
 			DBG("AndroidConnected\n");
 			break;
 		default:
