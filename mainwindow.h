@@ -19,6 +19,7 @@
 #include <QIcon>
 
 #include "fbcontrol.h"
+#include "hs_socket_app.h"
 
 
 #define FLOAT_BTN_EN
@@ -45,7 +46,6 @@ public:
     //QPixmap m_pix1;
     //QImage m_im;
     Fbcontrol m_fbc;
-
     /**
      * method
      * */

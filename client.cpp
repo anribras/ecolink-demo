@@ -6,23 +6,20 @@
 extern MainWindow* window;
 
 
-static  HSSocket *hs_socket_ptr = NULL;
+static  HSSocket hssocket;
 
-static  QString bi,fi;
+static  int bi,fi;
 
 int send_response(QString msg, QString para)
 {
     QJsonObject send;
     send.empty();
     send.insert("BI",bi);
-    fi = "0";
     send.insert("FI",fi);
     send.insert("PN",msg);
     send.insert("PP",para);
-    if(hs_socket_ptr)
-        hs_socket_ptr->HSSocketAddSender("HMIAPP",send);
-    else
-        qDebug()<< "hs_socket_pty NULL";
+    hssocket.HSSocketAddSender("HMIAPP",send);
+
 }
 
 
@@ -33,24 +30,23 @@ void dealData(QJsonObject &obj)
     QString msg;
     QString msg_para;
     QJsonObject send;
-    if(obj.find("BI").value().type() == QJsonValue::String)
-        bi = obj.find("BI").value().toString();
-    else
 
+    bi = obj.find("BI").value().toInt();
     qDebug()<<"bi = "<< bi ;
-    fi = obj.find("FI").value().toString();
+    fi = obj.find("FI").value().toInt();
     qDebug()<<"fi = "<< fi ;
     msg = obj.find("PN").value().toString();
     rtstate = msg + rtstate;
     qDebug()<<"msg = "<< msg ;
+
     msg_para = obj.find("PP").value().toString();
     qDebug()<<"msg_paras = "<< msg_para ;
     if(!QString::compare(msg,"startEcoLink")){
-        window->show_ecolink(true);
+        //window->show_ecolink(true);
         send_response(rtstate,"1"); //always ok
     }
     if(!QString::compare(msg,"exitEcoLink")){
-         window->hide_ecolink(true);
+         //window->hide_ecolink(true);
          send_response(rtstate,"1"); //always ok
     }
     if(!QString::compare(msg,"setWndDisplay"))
@@ -108,12 +104,7 @@ void start_mainclient()
         DBG("can't find env HSSOCKETMODULEPATH\n");
         exit(-1);
     }
-    hs_socket_ptr = HSSocket::getInstance();
-    if(hs_socket_ptr == NULL){
-        DBG("hssocket failed\n");
-        exit(-1);
-    }
     /*
      * Create Ecolink Server.    */
-    hs_socket_ptr->HSSocketCreate("EcoLink",conf_path,dealData);
+    hssocket.HSSocketCreate("EcoLink",conf_path,dealData);
 }

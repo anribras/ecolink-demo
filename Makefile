@@ -36,7 +36,7 @@ DISTNAME      = ecolink.bin1.0.0
 DISTDIR = /home/ecolink-dev/proj/ecolink-sdk/ecolink-demo/.tmp/ecolink.bin1.0.0
 LINK          = /home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-g++
 LFLAGS        = -march=armv7-a -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9 -mno-unaligned-access -mfloat-abi=hard --sysroot=/home/dev/WorkSpace/sysroots/mx6q -Wl,-O1 -Wl,-rpath,/usr/local/Qt-5.5.0/lib
-LIBS          = $(SUBLIBS) -L. -lplist -lecolink -lgstapp-0.10 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol -L/home/ecolink-dev/proj/ecolink-sdk/ecolink-demo/../socketlib/lib -lhssocket -pthread -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lxml2 -lglib-2.0 -L/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lEGL -lGAL -lpthread 
+LIBS          = $(SUBLIBS) -L. -lplist -lecolink -lgstapp-0.10 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol -L/home/ecolink-dev/proj/ecolink-sdk/ecolink-demo/../socketlib/lib -lHSSocket -pthread -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -lxml2 -lglib-2.0 -L/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lEGL -lGAL -lpthread 
 AR            = /home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-ar cqs
 RANLIB        = 
 SED           = sed
@@ -666,6 +666,16 @@ moc_mainwindow.cpp: ../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/i
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QIcon \
 		fbcontrol.h \
 		fbcontrol_global.h \
+		../socketlib/inc/hs_socket_app.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMap \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QThread \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QSettings \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsettings.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonObject \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonvalue.h \
+		../socketlib/inc/socket_driver.h \
 		mainwindow.h
 	/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/bin/moc $(DEFINES) -I/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/mkspecs/devices/linux-imx6-g++ -I/home/ecolink-dev/proj/ecolink-sdk/ecolink-demo -I/home/ecolink-dev/proj/ecolink-sdk/socketlib/inc -I/home/dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10 -I/home/dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0 -I/home/dev/WorkSpace/sysroots/mx6q/usr/lib/glib-2.0/include -I/home/dev/WorkSpace/sysroots/mx6q/usr/include/libxml2 -I/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include -I/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets -I/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui -I/home/dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/include/c++/4.8.3 -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/include/c++/4.8.3/arm-none-linux-gnueabi -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/include/c++/4.8.3/backward -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/lib/gcc/arm-none-linux-gnueabi/4.8.3/include -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/lib/gcc/arm-none-linux-gnueabi/4.8.3/include-fixed -I/home/dev/WorkSpace/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/include -I/home/dev/WorkSpace/sysroots/mx6q/usr/include mainwindow.h -o moc_mainwindow.cpp
 
@@ -938,6 +948,16 @@ main.o: main.cpp ../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/incl
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QIcon \
 		fbcontrol.h \
 		fbcontrol_global.h \
+		../socketlib/inc/hs_socket_app.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMap \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QThread \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QSettings \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsettings.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonObject \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonvalue.h \
+		../socketlib/inc/socket_driver.h \
 		debug.h \
 		stream.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gst.h \
@@ -1253,6 +1273,16 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QIcon \
 		fbcontrol.h \
 		fbcontrol_global.h \
+		../socketlib/inc/hs_socket_app.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMap \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QThread \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QSettings \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsettings.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonObject \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonvalue.h \
+		../socketlib/inc/socket_driver.h \
 		ui_mainwindow.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QLocale \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QVariant \
@@ -1470,7 +1500,11 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/app/gstappsrc.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/base/gstpushsrc.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/base/gstbasesrc.h \
-		sdk.h
+		sdk.h \
+		client.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QString \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonValue \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMessageLogger
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
 stream.o: stream.cpp stream.h \
@@ -1961,7 +1995,21 @@ demo.o: demo.cpp debug.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QIcon \
 		fbcontrol.h \
 		fbcontrol_global.h \
-		sdk.h
+		../socketlib/inc/hs_socket_app.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMap \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QThread \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QSettings \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsettings.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonObject \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qjsonvalue.h \
+		../socketlib/inc/socket_driver.h \
+		sdk.h \
+		client.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QString \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QJsonValue \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMessageLogger
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o demo.o demo.cpp
 
 newpushbutton.o: newpushbutton.cpp newpushbutton.h \
@@ -2160,7 +2208,248 @@ client.o: client.cpp client.h \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QSettings \
 		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsettings.h \
 		../socketlib/inc/socket_driver.h \
-		debug.h
+		debug.h \
+		mainwindow.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QMainWindow \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qmainwindow.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qwidget.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qwindowdefs.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qwindowdefs_win.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qmargins.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpaintdevice.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qrect.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsize.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpalette.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qcolor.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qrgb.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qbrush.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qmatrix.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpolygon.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qregion.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qdatastream.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qline.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qtransform.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpainterpath.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qimage.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpixelformat.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpixmap.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsharedpointer.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qsharedpointer_impl.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qfont.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qfontmetrics.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qfontinfo.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qsizepolicy.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qcursor.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qkeysequence.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qevent.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qurl.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qurlquery.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qfile.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qfiledevice.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qvector2d.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qtouchdevice.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qtabwidget.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qicon.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/QLabel \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qlabel.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtWidgets/qframe.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QPixmap \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QImage \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QPainter \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpainter.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qtextoption.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qpen.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QTimer \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qtimer.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qbasictimer.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QMouseEvent \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QDrag \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/qdrag.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QMimeData \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/qmimedata.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QPoint \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QDropEvent \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtCore/QEvent \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/local/Qt-5.5.0/include/QtGui/QIcon \
+		fbcontrol.h \
+		fbcontrol_global.h \
+		stream.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gst.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/galloca.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtypes.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/lib/glib-2.0/include/glibconfig.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmacros.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gversionmacros.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/garray.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gasyncqueue.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gatomic.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gerror.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gquark.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gbacktrace.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gbase64.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gbitlock.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gbookmarkfile.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gbytes.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gcharset.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gchecksum.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gconvert.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gdataset.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gdate.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gdatetime.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtimezone.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gdir.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/genviron.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gfileutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/ggettext.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/ghash.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/glist.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmem.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gnode.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/ghmac.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/ghook.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/ghostutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/giochannel.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmain.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gpoll.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gslist.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gstring.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gunicode.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gkeyfile.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmappedfile.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmarkup.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gmessages.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/goption.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gpattern.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gprimes.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gqsort.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gqueue.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/grand.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gregex.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gscanner.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gsequence.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gshell.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gslice.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gspawn.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gstrfuncs.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gstringchunk.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtestutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gthreadpool.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtimer.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtrashstack.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gtree.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gurifuncs.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gvarianttype.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gvariant.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gversion.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/gwin32.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/gallocator.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/gcache.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/gcompletion.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/gmain.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/grel.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib/deprecated/gthread.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/glib-compat.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstenumtypes.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/glib-object.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gbinding.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gtype.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gvalue.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gparam.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gclosure.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gsignal.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gmarshal.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gboxed.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/glib-types.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/genums.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gparamspecs.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gsourceclosure.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gtypemodule.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gtypeplugin.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gvaluearray.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gobject/gvaluetypes.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstversion.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstatomicqueue.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstbin.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstelement.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstconfig.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/parser.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlversion.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlexports.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/tree.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlstring.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlregexp.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/dict.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlmemory.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/threads.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/globals.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlerror.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/SAX.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xlink.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/SAX2.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/hash.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/valid.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/list.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlautomata.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/entities.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/encoding.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/libxml2/libxml/xmlIO.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpad.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstbuffer.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstminiobject.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstclock.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstcaps.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gststructure.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstdatetime.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstbufferlist.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstevent.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstformat.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstiterator.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttaglist.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstquery.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttask.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttaskpool.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpadtemplate.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstbus.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstmessage.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstelementfactory.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstplugin.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/glib-2.0/gmodule.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstmacros.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpluginfeature.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstindex.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstindexfactory.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstchildproxy.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstdebugutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsterror.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstghostpad.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstinfo.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstinterface.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstmarshal.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstparamspecs.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstvalue.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpipeline.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpoll.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstpreset.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstregistry.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstsegment.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstsystemclock.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttagsetter.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttrace.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttypefind.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsttypefindfactory.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gsturi.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstutils.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstparse.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstxml.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/gstcompat.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/app/gstappsrc.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/base/gstpushsrc.h \
+		../../../../dev/WorkSpace/sysroots/mx6q/usr/include/gstreamer-0.10/gst/base/gstbasesrc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o client.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

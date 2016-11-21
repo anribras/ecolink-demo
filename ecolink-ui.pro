@@ -35,7 +35,7 @@ TEMPLATE = app
 LIBS += -L. -lplist -lecolink  -lgstvideo-0.10 -lgstapp-0.10 -lglib-2.0 -lgmodule-2.0 -lgthread-2.0 -lgobject-2.0 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol 
 
 
-LIBS += -L$$PWD/../socketlib/lib -lhssocket
+LIBS += -L$$PWD/../socketlib/lib -lHSSocket
 
 INCLUDEPATH += $$PWD/../socketlib/inc
 DEPENDPATH += $$PWD/../socketlib/lib
