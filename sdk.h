@@ -12,10 +12,19 @@
 #define IN
 #define OUT
 #define NULL 0
-
+#define API_EXPORT __attribute((visibility("default")))
 #ifdef __cplusplus
 extern "C" {
 #endif
+typedef void (*touch_callback)(OUT int x,OUT int y) ;
+typedef void (*navinfo_callback)(OUT char* json,OUT int length) ;
+
+typedef enum
+{
+	TouchDown = 0,
+	TouchMoving,
+	TouchUp
+}TOUCH_EVENTS; 
 
 typedef enum 
 {
@@ -28,7 +37,7 @@ typedef enum
 	 * Mostly show connecting.jpg 
 	 * */
 	AndroidOnline, 
-	
+
 	/*
 	 * Mostly show install.jpg 
 	 * */
@@ -37,7 +46,7 @@ typedef enum
 	/*
 	 * Mostly show init.jpg 
 	 * */
-	AndroidPlugoutWhenInstalling = 3,
+	AndroidPlugoutWhenInstalling,
 
 	/*
 	 * Mostly show android-help.jpg 
@@ -52,15 +61,16 @@ typedef enum
 	/*
 	 * Mostly start the data transferring to save power 
 	 * */
-	AndroidScreenOn = 6,
+	AndroidScreenOn,
 
 	/*
 	 * Android home button disapear 
 	 * */
 	AndroidAppForeground,
 
-
-	/*IOS resume data transferring  */
+	 /*
+	  * IOS resume data transferring  
+	  * */
 	IosAppForeground,
 
 	/*
@@ -76,7 +86,7 @@ typedef enum
 	/*
 	 * 	disconnected status ,set after disconnected_cb
 	 * 	* */
-	AndroidDisconnected = 11,
+	AndroidDisconnected ,
 
 	/*
 	 * Mostly show init.jpg
@@ -91,10 +101,10 @@ typedef enum
 	/*
 	 * Must show the iphone backgroundtip.jpg
 	 * */
-	IosAppBackground = 14,
+	IosAppBackground ,
 
 	/*
-	 * Must show the iphone callingin.jpg
+	 *Must show iphone callingin.jpg
 	 * */
 	IosCallingin,
 
@@ -111,7 +121,7 @@ typedef enum
 	/*
 	 * 	disconnected status ,set after disconnected_cb
 	 * 	* */
-	IosDisconnected ,
+	IosDisconnected,
 
 
 	Reserved,
@@ -130,6 +140,7 @@ typedef enum
 	PhoneDesktopBtn,
 	PhoneReturnBtn,
 	PhoneMenuBtn,
+	PhoneScreenOn
 	/*
 	 * Reserved
 	 * */
@@ -156,66 +167,98 @@ typedef struct
  * @param cb
  * @return 
  */
-int init_link(IN ECOLINK_CFG* cb);
+API_EXPORT int init_link(IN ECOLINK_CFG* cb);
 
 /**
  * @brief release_link 
  * @return 
  */
-int release_link();
+API_EXPORT int release_link();
 
 /**
  * @brief get_link_status 
  * @return 
  */
-int get_link_status();
+API_EXPORT int get_link_status();
 /**
  * @brief enable_link_transfer 
  * @return 
  */
-int enable_link_transfer(); 
+API_EXPORT int enable_link_transfer(); 
 
 /**
  * @brief disable_link_transfer 
  * @return 
  */
-int disable_link_transfer(); 
+API_EXPORT int disable_link_transfer(); 
 
 /**
  * @brief get_link_transfer_status 
  * @return 
  */
-int get_link_transfer_status();
+API_EXPORT int get_link_transfer_status();
 
 /**
  * @brief init_touchevent 
  * @param dev
  * @return 
  */
-int init_touchevent(const char* dev); 
+API_EXPORT int init_touchevent(const char* dev); 
 /**
  * @brief enable_touchevent 
  * @return 
  */
-int enable_touchevent(); 
+API_EXPORT int enable_touchevent(); 
 /**
  * @brief disable_touchevent 
  * @return 
  */
-int disable_touchevent(); 
+API_EXPORT int disable_touchevent(); 
+
+/**
+ * @brief register_touchevent 
+ * @param type see TOUCH_EVENTS 
+ * @param 
+ * @return 
+ */
+API_EXPORT int register_touchevent(TOUCH_EVENTS type, touch_callback cb);
+
+/**
+ * @brief register_touchevent 
+ * @param type see TOUCH_EVENTS 
+ * @param 
+ * @return 
+ */
+API_EXPORT int unregister_touchevent(int type);
+
+/**
+ * @brief register_navinfo 
+ * @param type see TOUCH_EVENTS 
+ * @param 
+ * @return 
+ */
+API_EXPORT int register_navinfo(navinfo_callback cb);
+
+/**
+ * @brief register_touchevent 
+ * @param type see TOUCH_EVENTS 
+ * @param 
+ * @return 
+ */
+API_EXPORT int unregister_navinfo();
 
 /**
  * @brief extra_event 
  * @param e
  * @return 
  */
-int extra_event(EXTRA_EVENTS e);
+API_EXPORT int extra_event(EXTRA_EVENTS e);
+
 /**
  * @brief enable_link_iosstream_transfer 
  * @return 
  */
-int enable_link_iosstream_transfer();
-
+API_EXPORT int enable_link_iosstream_transfer();
 
 #ifdef __cplusplus
 }

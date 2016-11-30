@@ -78,9 +78,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
 #ifdef FLOAT_BTN_EN
 
-    ui->floatButton->installEventFilter(this);
     ui->floatButton->setIcon(QIcon(FULL_PATH(float-button.png)));
-    ui->floatButton->hide();
+    ui->floatButton->setStyleSheet("backgroud: transparent");
+    //ui->floatButton->setWindowFlags(Qt::FramelessWindowHint );
+    ui->floatButton->show();
+    ui->floatButton->installEventFilter(this);
 
     ui->label->setPixmap(QPixmap(FULL_PATH(group.png)));
 
@@ -92,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->menuBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(menu.png)),83,83,"菜单");
     ui->homeBtn->setIcon(83,15,1.5,new QPixmap(FULL_PATH(home.png)),82,83,"桌面");
 
-    ui->centralWidget->setStyleSheet("background-color:transparent;");
+    //ui->centralWidget->setStyleSheet("background-color:transparent;");
 #endif
 
 }
@@ -111,7 +113,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
     static QPoint lastPnt;
     QMouseEvent* e = static_cast<QMouseEvent*>(evt);
     startPnt = ui->floatButton->pos();
-    qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
+    //qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
     if(evt->type() == QEvent::MouseButtonPress)
     {
         qDebug("oMouseButtonPress (%d %d)\n",e->pos().x(),e->pos().y());
@@ -128,7 +130,7 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
         movedFolatBtn = true;
         qDebug("MouseMove (%d %d)\n",e->pos().x(),e->pos().y());
         int dx = e->pos().x() - pressPnt.x();
-        int dy = e->pos().y()-pressPnt.y();
+        int dy = e->pos().y() - pressPnt.y();
         //qDebug("dx dy (%d %d)\n",dx,dy);
         ui->floatButton->move(ui->floatButton->pos().x()+dx,ui->floatButton->pos().y()+dy);
 
@@ -333,14 +335,22 @@ void MainWindow::on_menuBtn_clicked()
 #endif
 
 
-void MainWindow::enable_transparentBgd()
+
+void MainWindow::set_mix_layout()
 {
     ui->picLabel->resize(0,0);
 	ui->floatButton->show();
-    m_fbc.Alpha("/dev/fb0",1,128);//display button
+    m_fbc.Alpha("/dev/fb0",1,gAlpha);//display button and stream
 }
 
-void MainWindow::disable_transparentBgd()
+void MainWindow::set_pure_ui_layout()
+{
+    ui->picLabel->resize(gWidth,gHeight);
+	ui->floatButton->hide();
+    m_fbc.Alpha("/dev/fb0",1,255);//display ui only
+}
+
+void MainWindow::set_pure_stream_layout()
 {
     m_fbc.Alpha("/dev/fb1",1,255);//display stream fully
     ui->picLabel->resize(gWidth,gHeight);

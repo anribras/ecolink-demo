@@ -27,6 +27,7 @@
 #define FULL_PATH(filename) "/usr/app/phonelink/ecolink/res/le/images/"#filename""
 #define gWidth (1280)
 #define gHeight (720)
+#define gAlpha  (128)
 
 namespace Ui
 {
@@ -60,7 +61,9 @@ public:
     bool get_wnd_display_status();
 	int get_mirror_status();
 	void set_mirror_status(int flag);
-    void enable_transparentBgd();
+    void set_pure_ui_layout();
+    void set_mix_layout();
+    void set_pure_stream_layout();
     void disable_transparentBgd();
 private slots:
 

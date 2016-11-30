@@ -34,7 +34,7 @@ typedef enum
 
 
 
-void gstreamer_init(int need_scale);
+void gstreamer_init(int mode);
 int get_steam_data_cb(char* data, int length);
 void gstreamer_play();
 void gstreamer_pause();

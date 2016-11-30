@@ -2,6 +2,8 @@
 #define CLIENT_H
 
 #include <QJsonObject>
+#include <QJsonParseError>
+#include <QJsonDocument>
 #include <QString>
 #include <QDebug>
 #include <QJsonValue>
@@ -14,6 +16,7 @@
 
 
 int send_response(QString msg, QString para);
+int send_response_navi(QString msg, QJsonObject para);
 void start_mainclient();
 
 #endif // CLIENT_H

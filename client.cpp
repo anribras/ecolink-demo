@@ -22,6 +22,17 @@ int send_response(QString msg, QString para)
 
 }
 
+int send_response_navi(QString msg, QJsonObject para)
+{
+    QJsonObject send;
+    send.empty();
+    send.insert("BI",bi);
+    send.insert("FI",fi);
+    send.insert("PN",msg);
+    send.insert("PP",para);
+    hssocket.HSSocketAddSender("HMIAPP",send);
+}
+
 
 void dealData(QJsonObject &obj)
 {

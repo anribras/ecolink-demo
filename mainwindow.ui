@@ -441,7 +441,7 @@
    <bool>true</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="floatButton">
+   <widget class="QToolButton" name="floatButton">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -461,9 +461,6 @@
       <width>64</width>
       <height>64</height>
      </size>
-    </property>
-    <property name="flat">
-     <bool>true</bool>
     </property>
    </widget>
    <widget class="QGroupBox" name="btnGroup">

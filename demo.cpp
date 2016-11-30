@@ -22,11 +22,29 @@ extern MainWindow* window;
 
 static int test_fd;
 static int test_fd1;
+static int device = NULL;
+
+typedef enum{
+	ANDROID = 0,
+	IOS
+} Device;
 
 
+void touch_down_callback(int x, int y)
+{
+	DBG("screen on\n");
+	extra_event(PhoneScreenOn);
+}
 
+static int fjson;
 void connect()
 {
+	//fjson  = open("test.json",O_RDWR | O_CREAT |O_TRUNC, 0644);
+	//if(fjson < 0 ){
+		//DBG("open test.json error");
+		//exit(-1);
+	//}
+
 
 	DBG("callback ->%s\n",__FUNCTION__);
 	enable_link_transfer();
@@ -47,7 +65,10 @@ void connect()
 	}
 #endif
     if(gstreamer_get_status() != PLAYING){
-        gstreamer_init(0);
+		if(device == ANDROID)
+			gstreamer_init(STREAM);
+		else
+			gstreamer_init(JPEG);
         gstreamer_play();
     }
     if(window->get_wnd_display_status() == true)
@@ -96,14 +117,16 @@ void st_changed(int* st)
 	switch(*st)
 	{
 		case AndroidAdbNotOpened:
-            send_response("devConnectState","devAdbnotopened");
+            send_response("devConnectState","devAdbNotOpened");
 			DBG("AndroidAdbNotOpened\n");
             window->paint_image(FULL_PATH(help-android.jpg));
 			break;
         case AndroidOnline:
             send_response("devConnectState","devPlugin");
+			window->show_ecolink(true);
             //window->show_ecolink();
             DBG("AndroidOnline\n");
+			device = ANDROID;
             window->paint_image(FULL_PATH(connecting.jpg));
 			break;
 		case AndroidAppLunchFail:
@@ -122,7 +145,9 @@ void st_changed(int* st)
 			break;
 		case IosPlugIn:
             send_response("devConnectState","devPlugin");
+			window->show_ecolink(true);
 			DBG("IosPlugIn\n");
+			device = IOS;
 			window->paint_image(FULL_PATH(connecting.jpg));
             //window->show_ecolink();
 			break;
@@ -132,7 +157,7 @@ void st_changed(int* st)
 			break;
 		case IosAppNotReady:
 			DBG("IosAppNotReady\n");
-            send_response("devConnectState","devIosnotready");
+            send_response("devConnectState","devIosNotReady");
             window->paint_image(FULL_PATH(help-ios.jpg));
 			break;
 		case IosDisconnected:
@@ -141,21 +166,30 @@ void st_changed(int* st)
 		case IosAppBackground:
 			DBG("IosAppBackground\n");
             window->paint_image(FULL_PATH(backgroundtip.jpg));
+			usleep(100000);
             //window->show_ecolink();
+#if 0
 			if(gstreamer_get_status() == PLAYING){
                 gstreamer_pause();
                 gstreamer_release();
 			}
-            //window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+#else
+            window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+#endif
 			break;
         case IosCallingin:
 			DBG("IosCallingin\n");
             window->paint_image(FULL_PATH(backgroundtip.jpg));
+			usleep(100000);
             //window->show_ecolink();
+#if 0
 			if(gstreamer_get_status() == PLAYING){
                 gstreamer_pause();
                 gstreamer_release();
 			}
+#else
+            window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+#endif
 			break;
 		case AndroidAppForeground:
 			DBG("AndroidAppForeground\n"); 
@@ -163,27 +197,51 @@ void st_changed(int* st)
 			break;
 		case IosAppForeground:
             DBG("IosAppForeground\n");
+#if 0
             if(gstreamer_get_status() != PLAYING){
-                gstreamer_init(0);
+                gstreamer_init(JPEG);
                 gstreamer_play();
             }
-            if(window->get_wnd_display_status() == true)
-            {
+			if(window->get_wnd_display_status() == false){
+				DBG("connected but stream no need show\n");
+				window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
+			}
+#else
+            window->m_fbc.Alpha("/dev/fb0",1,gAlpha);//show stream
+#endif
+			break;
+		case AndroidScreenOn:
 
+			DBG("AndroidScreenOn\n");
+
+			unregister_touchevent(TouchDown);
+#if 0
+			if(gstreamer_get_status() != PLAYING){
+                gstreamer_init(STREAM);
+                gstreamer_play();
             }
-            else
-            {
+			if(window->get_wnd_display_status() == false){
                 DBG("window hide no need show stream");
                 window->m_fbc.Alpha("/dev/fb0",1,255);//show pic
             }
-
-            //window->disable_transparentBgd();
-			break;
-		case AndroidScreenOn:
-			DBG("AndroidScreenOn\n");
+#else
+			window->m_fbc.Alpha("/dev/fb0",1,gAlpha);//show stream
+#endif
+            
 			break;
 		case AndroidScreenOff:
+			window->paint_image(FULL_PATH(screenoff.jpg));
+			usleep(100000);
+#if 0
+			if(gstreamer_get_status() == PLAYING){
+                gstreamer_pause();
+                gstreamer_release();
+			}
+#else
+			window->m_fbc.Alpha("/dev/fb0",1,255);//show stream
+#endif
 			DBG("AndroidScreenOff\n");
+			register_touchevent(TouchDown,touch_down_callback);
 			break;
 		case AndroidAppBackground:
 			DBG("AndroidAppBackground\n");
@@ -217,6 +275,66 @@ void data_gotten(int* mode ,char* buffer, int* size)
     write(test_fd,buffer,*size);
 #endif
 	get_steam_data_cb(buffer,*size);
+}
+
+ 
+QJsonObject ObjectFromString(const QString& in)
+{
+	QJsonParseError err;
+    QJsonObject obj;
+    QJsonDocument doc = QJsonDocument::fromJson(in.toUtf8(),&err);
+    // check validity of the document
+	if (err.error == QJsonParseError::NoError) {
+		if(!doc.isNull()){
+			if(doc.isObject()){
+				obj = doc.object();        
+			}
+			else
+				qDebug() << "Not an object" << endl;
+		}else{
+			qDebug() << "Invalid QJsonObject\n" << in << endl;
+		} 
+		qDebug() << "recv QJsonObject" << obj << endl;
+	} else {
+		qDebug() << err.errorString() << endl;
+	}
+
+	return obj;
+}
+
+void navinfo_data(char* json, int b)
+{
+	//DBG("navi : %s\n",json);
+	//DBG("length : %d\n",b);
+	//char line = '\n';
+	//write(fjson,json,strlen(json));
+	//write(fjson ,&line,1);
+	QString str(json);
+	//qDebug()<< "QString json"<< str  ;
+	QJsonObject obj = ObjectFromString(str);
+	QJsonValue parameter = obj.find("Parameter").value();
+	if(parameter.isObject()){
+		//DBG("got Parameter jsonObject\n");
+		QJsonObject objPara = parameter.toObject();
+#if 0
+		QJsonObject::Iterator it;
+		for (it = objPara.begin(); it != objPara.end(); it++) {
+			QString key = it.key();
+			if(it.value().isString()){
+				QString value = it.value().toString();
+				//qDebug()<< "key"<< key << ":"<< value;  
+			}
+			if(it.value().isDouble()){
+				int value = it.value().toInt();
+				//qDebug()<< "key"<< key << ":"<< value;  
+			}
+		}
+#else
+	 	send_response_navi("navInfo", objPara);
+#endif
+	} else {
+		DBG("parse QJsonObject Parameter error\n");
+	}
 }
 
 

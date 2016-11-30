@@ -264,9 +264,9 @@ static void stop_feed(GstElement * pipeline, gpointer data)
 
 /**
  * @brief gstreamer_init 
- * @param path
+ * @param mode 0-JPEG 1-H264
  */
-void gstreamer_init(int need_scale)
+void gstreamer_init(int mode)
 {
     DBG("%s\n",__FUNCTION__);
     GstBus *bus;
@@ -301,29 +301,40 @@ void gstreamer_init(int need_scale)
     //g_object_set(G_OBJECT(src), "stream-type", 0, NULL);
 
 
-    parser = gst_element_factory_make("h264parse","parser");
-    if(!parser) {
-        DBG("create parser fail\n");
-    }
-    decoder = gst_element_factory_make("vpudec","decoder");
-    //decoder = gst_element_factory_make("ffdec_h264","decoder");
+	if(mode)
+		parser = gst_element_factory_make("h264parse","parser");
+	else
+		parser = gst_element_factory_make("jpegparse","parser");
+	if(!parser) {
+		DBG("create parser fail\n");
+	}
+
+	if(mode){
+		decoder = gst_element_factory_make("vpudec","decoder");
+		g_object_set(G_OBJECT(decoder), "low-latency", TRUE, NULL);
+		g_object_set(G_OBJECT(decoder), "framerate-nu", 25, NULL);
+		//g_object_set(G_OBJECT(decoder), "framedrop", TRUE, NULL);
+		g_object_set(G_OBJECT(decoder), "dis-reorder", TRUE, NULL);
+		//g_object_set(G_OBJECT(decoder), "framedrop-level-mask", 0x0ff, NULL); 
+	}
+	else
+		decoder = gst_element_factory_make("ffdec_mjpeg","decoder");
+
     if(!decoder) {
         DBG("create decoder fail\n");
     }
-   g_object_set(G_OBJECT(decoder), "low-latency", TRUE, NULL);
-   g_object_set(G_OBJECT(decoder), "framerate-nu", 25, NULL);
-   //g_object_set(G_OBJECT(decoder), "framedrop", TRUE, NULL);
-   g_object_set(G_OBJECT(decoder), "dis-reorder", TRUE, NULL);
-   //g_object_set(G_OBJECT(decoder), "framedrop-level-mask", 0x0ff, NULL); 
-    converter = gst_element_factory_make("ffmpegcolorspace","converter");
+
+   converter = gst_element_factory_make("ffmpegcolorspace","converter");
     if(!converter) {
         DBG("create converter fail\n");
     }
+
     sink = gst_element_factory_make("mfw_v4lsink","sink");
     //sink = gst_element_factory_make("mfw_isink","sink");
     if(!sink) {
         DBG("create sink fail\n");
     }
+
     /*sink sync false*/
     g_object_set(sink, "sync", false, "async",false,NULL);
     /*register bus*/
