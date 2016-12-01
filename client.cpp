@@ -2,6 +2,7 @@
 #include "client.h"
 #include "mainwindow.h"
 #include "stream.h"
+#include "sdk.h"
 
 extern MainWindow* window;
 
@@ -33,6 +34,67 @@ int send_response_navi(QString msg, QJsonObject para)
     hssocket.HSSocketAddSender("HMIAPP",send);
 }
 
+QJsonObject ObjectFromString(const QString& in)
+{
+	QJsonParseError err;
+    QJsonObject obj;
+    QJsonDocument doc = QJsonDocument::fromJson(in.toUtf8(),&err);
+    // check validity of the document
+	if (err.error == QJsonParseError::NoError) {
+		if(!doc.isNull()){
+			if(doc.isObject()){
+				obj = doc.object();        
+			}
+			else
+				qDebug() << "Not an object" << endl;
+		}else{
+			qDebug() << "Invalid QJsonObject\n" << in << endl;
+		} 
+		//qDebug() << "recv QJsonObject" << obj << endl;
+	} else {
+		qDebug() << err.errorString() << endl;
+	}
+
+	return obj;
+}
+
+void navinfo_data(char* json, int b)
+{
+	//DBG("navi : %s\n",json);
+	//DBG("length : %d\n",b);
+	//char line = '\n';
+	//write(fjson,json,strlen(json));
+	//write(fjson ,&line,1);
+	QString str(json);
+	//qDebug()<< "QString json"<< str  ;
+	QJsonObject obj = ObjectFromString(str);
+	QJsonValue parameter = obj.find("Parameter").value();
+	if(parameter.isObject()){
+		//DBG("got Parameter jsonObject\n");
+		QJsonObject objPara = parameter.toObject();
+#if 0
+		QJsonObject::Iterator it;
+		for (it = objPara.begin(); it != objPara.end(); it++) {
+			QString key = it.key();
+			if(it.value().isString()){
+				QString value = it.value().toString();
+				//qDebug()<< "key"<< key << ":"<< value;  
+			}
+			if(it.value().isDouble()){
+				int value = it.value().toInt();
+				//qDebug()<< "key"<< key << ":"<< value;  
+			}
+		}
+#else
+	 	send_response_navi("navInfo", objPara);
+#endif
+	} else {
+		DBG("parse QJsonObject Parameter error\n");
+	}
+}
+
+
+
 
 void dealData(QJsonObject &obj)
 {
@@ -52,6 +114,14 @@ void dealData(QJsonObject &obj)
 
     msg_para = obj.find("PP").value().toString();
     qDebug()<<"msg_paras = "<< msg_para ;
+	if(!QString::compare(msg,"startNavTrans")){
+		register_navinfo(navinfo_data);
+        send_response(rtstate,"1"); //always ok
+    }
+	if(!QString::compare(msg,"exitNavTrans")){
+		unregister_navinfo();
+        send_response(rtstate,"1"); //always ok
+    }
     if(!QString::compare(msg,"startEcoLink")){
         //window->show_ecolink(true);
         send_response(rtstate,"1"); //always ok

@@ -87,6 +87,7 @@ int push_in(char* data ,int length){
 	//DUMP_L(data,50);
 	GstFlowReturn signal_status = GST_FLOW_ERROR;
 	GstBuffer* buffer;
+#if 0
     guint8 *ptr = (guint8 *)g_malloc(length);
     //guint8 ptr[500 * 1024]; //can' t work 
 	//so weird the ptr memory allocation must use g_malloc and must not g_free after
@@ -101,9 +102,15 @@ int push_in(char* data ,int length){
     //gst_buffer_set_data(buffer,(guint8*)data,length);  
 	g_signal_emit_by_name(src, "push-buffer", buffer, &signal_status);
 	//signal_status = gst_app_src_push_buffer(src,buffer);//can`t work
+#else
+    buffer = gst_buffer_new_and_alloc(length);
+	memcpy(GST_BUFFER_DATA(buffer), data, length);
+    GST_BUFFER_SIZE(buffer) = length;
+	signal_status = gst_app_src_push_buffer(src,buffer);
+#endif
 	if(GST_FLOW_OK == signal_status) {
 		//DBG("push buffer ok new\n");
-		gst_buffer_unref(buffer);
+		//gst_buffer_unref(buffer);
         //g_free(ptr);// must not 
 		return true;
 	} else {

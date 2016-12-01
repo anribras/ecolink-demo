@@ -215,9 +215,6 @@ int main(int argc, char *argv[])
     extern void start_mainclient();
     start_mainclient();
 
-	extern void navinfo_data(char* json, int b);
-	/*nav info*/
-	register_navinfo(navinfo_data);
 
 
 	window->show_ecolink(true);

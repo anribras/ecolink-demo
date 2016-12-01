@@ -278,65 +278,6 @@ void data_gotten(int* mode ,char* buffer, int* size)
 }
 
  
-QJsonObject ObjectFromString(const QString& in)
-{
-	QJsonParseError err;
-    QJsonObject obj;
-    QJsonDocument doc = QJsonDocument::fromJson(in.toUtf8(),&err);
-    // check validity of the document
-	if (err.error == QJsonParseError::NoError) {
-		if(!doc.isNull()){
-			if(doc.isObject()){
-				obj = doc.object();        
-			}
-			else
-				qDebug() << "Not an object" << endl;
-		}else{
-			qDebug() << "Invalid QJsonObject\n" << in << endl;
-		} 
-		qDebug() << "recv QJsonObject" << obj << endl;
-	} else {
-		qDebug() << err.errorString() << endl;
-	}
-
-	return obj;
-}
-
-void navinfo_data(char* json, int b)
-{
-	//DBG("navi : %s\n",json);
-	//DBG("length : %d\n",b);
-	//char line = '\n';
-	//write(fjson,json,strlen(json));
-	//write(fjson ,&line,1);
-	QString str(json);
-	//qDebug()<< "QString json"<< str  ;
-	QJsonObject obj = ObjectFromString(str);
-	QJsonValue parameter = obj.find("Parameter").value();
-	if(parameter.isObject()){
-		//DBG("got Parameter jsonObject\n");
-		QJsonObject objPara = parameter.toObject();
-#if 0
-		QJsonObject::Iterator it;
-		for (it = objPara.begin(); it != objPara.end(); it++) {
-			QString key = it.key();
-			if(it.value().isString()){
-				QString value = it.value().toString();
-				//qDebug()<< "key"<< key << ":"<< value;  
-			}
-			if(it.value().isDouble()){
-				int value = it.value().toInt();
-				//qDebug()<< "key"<< key << ":"<< value;  
-			}
-		}
-#else
-	 	send_response_navi("navInfo", objPara);
-#endif
-	} else {
-		DBG("parse QJsonObject Parameter error\n");
-	}
-}
-
 
 #endif
 
