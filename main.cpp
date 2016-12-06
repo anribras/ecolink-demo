@@ -185,16 +185,26 @@ int main(int argc, char *argv[])
 	 * */
 	cfg.view_base_x = 0;
 	cfg.view_base_y = 0;
+
+#if 1
+	if(argc < 3){
+		DBG("lack of paras\n");
+		return -1;
+	}
+	int width = atoi(argv[1]);
+	int height = atoi(argv[2]);
+	DBG("input (w,h) = (%d,%d)\n",width,height);
+#endif
 	/*
 	 * view size
 	 * */
-	cfg.view_width= 1280;
-	cfg.view_height= 720;
+	cfg.view_width= width;
+	cfg.view_height= height;
 	/*
 	 * screen size
 	 * */
-	cfg.sc_width = 1280;
-	cfg.sc_height = 720;
+	cfg.sc_width = width;
+	cfg.sc_height = height;
 
 
 	if(init_link(&cfg))

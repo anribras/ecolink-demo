@@ -393,7 +393,7 @@ void gstreamer_init(int need_scale)
     gst_element_set_state(pipeline,GST_STATE_NULL);
 	
 
-	overlay();
+	//overlay();
 
 	gstreamer_start_loop();
     return ;

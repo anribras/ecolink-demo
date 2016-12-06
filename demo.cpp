@@ -138,9 +138,11 @@ void st_changed(int* st)
             window->disable_transparentBgd();
 			break;
 		case AndroidScreenOn:
+			//enable_link_transfer();
 			DBG("AndroidScreenOn\n");
 			break;
 		case AndroidScreenOff:
+			//disable_link_transfer();
 			DBG("AndroidScreenOff\n");
 			break;
 		case AndroidAppBackground:
