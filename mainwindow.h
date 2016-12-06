@@ -27,7 +27,7 @@
 #define FULL_PATH(filename) "/usr/app/phonelink/ecolink/res/le/images/"#filename""
 #define gWidth (1280)
 #define gHeight (720)
-#define gAlpha  (128)
+#define gAlpha  (0)
 
 namespace Ui
 {
@@ -86,10 +86,13 @@ protected:
     bool movedFolatBtn;
     bool releasedFolatBtn;
     void paintEvent(QPaintEvent *event);
+#if 0
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *);
     void mousePressEvent(QMouseEvent *);
+#endif
     bool eventFilter(QObject *, QEvent *evt);
+
 };
 
 #endif // MAINWINDOW_H

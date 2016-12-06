@@ -58,14 +58,18 @@ QJsonObject ObjectFromString(const QString& in)
 	return obj;
 }
 
+extern int fjson;
 void navinfo_data(char* json, int b)
 {
 	//DBG("navi : %s\n",json);
+	//DBG("navi len: %d\n",strlen(json));
 	//DBG("length : %d\n",b);
 	//char line = '\n';
 	//write(fjson,json,strlen(json));
 	//write(fjson ,&line,1);
-	QString str(json);
+	
+	//QString str(json);
+	QString str = QString::fromUtf8(json ,strlen(json));
 	//qDebug()<< "QString json"<< str  ;
 	QJsonObject obj = ObjectFromString(str);
 	QJsonValue parameter = obj.find("Parameter").value();

@@ -76,13 +76,18 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->paint_image(FULL_PATH(init.jpg));
 
+
 #ifdef FLOAT_BTN_EN
 
     ui->floatButton->setIcon(QIcon(FULL_PATH(float-button.png)));
     ui->floatButton->setStyleSheet("backgroud: transparent");
     //ui->floatButton->setWindowFlags(Qt::FramelessWindowHint );
-    ui->floatButton->show();
-    ui->floatButton->installEventFilter(this);
+    //ui->floatButton->show();
+    //ui->floatButton->hide();
+    //ui->floatButton->installEventFilter(this);
+
+	/*floatButton accept touch events*/
+	ui->floatButton->setAttribute(Qt::WA_AcceptTouchEvents); 
 
     ui->label->setPixmap(QPixmap(FULL_PATH(group.png)));
 
@@ -96,6 +101,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //ui->centralWidget->setStyleSheet("background-color:transparent;");
 #endif
+	this->setMouseTracking(true);
+
 
 }
 
@@ -111,8 +118,13 @@ bool MainWindow::eventFilter(QObject *obj, QEvent *evt)
     static QPoint startPnt;
     static QPoint pressPnt;
     static QPoint lastPnt;
+	/*weird run in wayland-egl mode , can not recv mouse event*/
     QMouseEvent* e = static_cast<QMouseEvent*>(evt);
     startPnt = ui->floatButton->pos();
+
+	if(obj == ui->floatButton){
+		qDebug() << "type" << evt->type() <<  e->pos()  << endl;
+	}
     //qDebug("start pos(%d %d)\n",startPnt.x(),startPnt.y());
     if(evt->type() == QEvent::MouseButtonPress)
     {
@@ -189,6 +201,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
     //DBG("%s: %d pic...\n",path,i++ % 10);
     //painter.drawPixmap(0,0, QPixmap(path),0,0,1280,800);
 }
+
+#if 0
 /**
  * @brief mousePressEvent
  * @param event
@@ -196,7 +210,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     *cur_pos = event->pos();
-    //DBG("press(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
+    DBG("press(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
     int x = cur_pos->x();
     int y = cur_pos->y();
 }
@@ -207,7 +221,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
     *cur_pos = event->pos();
-    //DBG("move(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
+	DBG("move(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
     int x = cur_pos->x();
     int y = cur_pos->y();
 }
@@ -215,10 +229,11 @@ void MainWindow::mouseMoveEvent(QMouseEvent *event)
 void MainWindow::mouseReleaseEvent(QMouseEvent *event)
 {
     *cur_pos = event->pos();
-    //DBG("released(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
+	DBG("released(x,y) = (%d,%d)\n",cur_pos->x(),cur_pos->y());
     int x = cur_pos->x();
     int y = cur_pos->y();
 }
+#endif
 
 void MainWindow::start_get_image()
 {
@@ -250,13 +265,10 @@ void MainWindow::show_ecolink(bool r)
     firsttime = false;
 	this->resize(gWidth,gHeight);
 	enable_touchevent();
-	if(gstreamer_get_status() == PLAYING){
+	if(gstreamer_get_status() == PLAYING)
         m_fbc.Alpha("/dev/fb0",1,0);
-	}
     else
-    {
         m_fbc.Alpha("/dev/fb0",1,255);
-    }
     if(r == true)
         send_response("displayState","1");
     wnd_is_showing = true;
@@ -265,15 +277,18 @@ void MainWindow::hide_ecolink(bool r)
 {
     //this->hide();
 	this->resize(0,0);
-	usleep(500000);
-	if(gstreamer_get_status() == PLAYING){
+	usleep(250000);
+	if(gstreamer_get_status() == PLAYING)
         m_fbc.Alpha("/dev/fb0",1,255);//hide stream
-	}
+
     this->resize(0,0);
+	usleep(250000);
+
 	disable_touchevent(); 
 	DBG("hide_ecolink\n");
     if(r == true)
         send_response("displayState","2");
+
     wnd_is_showing = false;
 }
 
@@ -311,6 +326,7 @@ void MainWindow::on_returnBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+	ui->picLabel->show();
     extra_event(PhoneReturnBtn);
 
 }
@@ -321,6 +337,7 @@ void MainWindow::on_homeBtn_clicked()
     ui->btnGroup->hide();
     //ui->label->hide();
     ui->floatButton->show();
+	ui->picLabel->hide();
     extra_event(PhoneDesktopBtn);
 }
 
@@ -334,18 +351,19 @@ void MainWindow::on_menuBtn_clicked()
 }
 #endif
 
-
-
 void MainWindow::set_mix_layout()
 {
-    ui->picLabel->resize(0,0);
+    //ui->picLabel->resize(0,0);
+    ui->picLabel->hide();
 	ui->floatButton->show();
     m_fbc.Alpha("/dev/fb0",1,gAlpha);//display button and stream
 }
 
 void MainWindow::set_pure_ui_layout()
 {
-    ui->picLabel->resize(gWidth,gHeight);
+
+    ui->picLabel->show();
+    //ui->picLabel->resize(gWidth,gHeight);
 	ui->floatButton->hide();
     m_fbc.Alpha("/dev/fb0",1,255);//display ui only
 }
@@ -353,7 +371,8 @@ void MainWindow::set_pure_ui_layout()
 void MainWindow::set_pure_stream_layout()
 {
     m_fbc.Alpha("/dev/fb1",1,255);//display stream fully
-    ui->picLabel->resize(gWidth,gHeight);
+    ui->picLabel->show();
+    //ui->picLabel->resize(gWidth,gHeight);
 	ui->floatButton->hide();
 }
 

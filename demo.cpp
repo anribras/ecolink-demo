@@ -23,6 +23,7 @@ extern MainWindow* window;
 static int test_fd;
 static int test_fd1;
 static int device = NULL;
+static int touch = 0;
 
 typedef enum{
 	ANDROID = 0,
@@ -32,11 +33,18 @@ typedef enum{
 
 void touch_down_callback(int x, int y)
 {
-	DBG("screen on\n");
-	extra_event(PhoneScreenOn);
+	/*2 different rep*/
+	if(touch == 0x1){
+		DBG("android screen on\n");
+		extra_event(PhoneScreenOn);
+	}
+	if(touch == 0x2){
+		DBG("ios reconnect\n");
+		extra_event(IosReconnect);
+	}
 }
 
-static int fjson;
+int fjson;
 void connect()
 {
 	//fjson  = open("test.json",O_RDWR | O_CREAT |O_TRUNC, 0644);
@@ -149,6 +157,8 @@ void st_changed(int* st)
 			DBG("IosPlugIn\n");
 			device = IOS;
 			window->paint_image(FULL_PATH(connecting.jpg));
+			/*reconnect may register it, close then*/
+			unregister_touchevent(TouchDown);
             //window->show_ecolink();
 			break;
 		case IosPlugOut:
@@ -158,7 +168,10 @@ void st_changed(int* st)
 		case IosAppNotReady:
 			DBG("IosAppNotReady\n");
             send_response("devConnectState","devIosNotReady");
-            window->paint_image(FULL_PATH(help-ios.jpg));
+            //window->paint_image(FULL_PATH(help-ios.jpg));
+            window->paint_image(FULL_PATH(ios-reconnect.jpg));
+			touch  = 2;
+			register_touchevent(TouchDown,touch_down_callback);
 			break;
 		case IosDisconnected:
 			DBG("IosDisconnected\n");
@@ -167,7 +180,7 @@ void st_changed(int* st)
 			DBG("IosAppBackground\n");
             window->paint_image(FULL_PATH(backgroundtip.jpg));
 			usleep(100000);
-            //window->show_ecolink();
+            //window->show_ecoli)nk();
 #if 0
 			if(gstreamer_get_status() == PLAYING){
                 gstreamer_pause();
@@ -179,7 +192,7 @@ void st_changed(int* st)
 			break;
         case IosCallingin:
 			DBG("IosCallingin\n");
-            window->paint_image(FULL_PATH(backgroundtip.jpg));
+            window->paint_image(FULL_PATH(callingin.jpg));
 			usleep(100000);
             //window->show_ecolink();
 #if 0
@@ -193,7 +206,8 @@ void st_changed(int* st)
 			break;
 		case AndroidAppForeground:
 			DBG("AndroidAppForeground\n"); 
-            //window->disable_transparentBgd();
+			//if(gstreamer_get_status() == PLAYING )
+				//window->set_pure_stream_layout();
 			break;
 		case IosAppForeground:
             DBG("IosAppForeground\n");
@@ -241,11 +255,12 @@ void st_changed(int* st)
 			window->m_fbc.Alpha("/dev/fb0",1,255);//show stream
 #endif
 			DBG("AndroidScreenOff\n");
+			touch  = 0x1;
 			register_touchevent(TouchDown,touch_down_callback);
 			break;
 		case AndroidAppBackground:
 			DBG("AndroidAppBackground\n");
-            //window->enable_transparentBgd();
+            //window->set_mix_layout();
             break;
 		case AndroidDisconnected:
 			DBG("AndroidDisconnected\n");

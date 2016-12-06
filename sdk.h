@@ -140,7 +140,8 @@ typedef enum
 	PhoneDesktopBtn,
 	PhoneReturnBtn,
 	PhoneMenuBtn,
-	PhoneScreenOn
+	PhoneScreenOn,
+	IosReconnect
 	/*
 	 * Reserved
 	 * */
@@ -254,11 +255,6 @@ API_EXPORT int unregister_navinfo();
  */
 API_EXPORT int extra_event(EXTRA_EVENTS e);
 
-/**
- * @brief enable_link_iosstream_transfer 
- * @return 
- */
-API_EXPORT int enable_link_iosstream_transfer();
 
 #ifdef __cplusplus
 }

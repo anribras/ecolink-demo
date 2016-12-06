@@ -35,7 +35,7 @@ COMPRESS      = gzip -9f
 DISTNAME      = ecolink.bin1.0.0
 DISTDIR = /media/bravo/Work/Osshared/linux/d27/proj/ecolink-sdk/ecolink-demo/.tmp/ecolink.bin1.0.0
 LINK          = /home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-g++
-LFLAGS        = -march=armv7-a -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9 -mno-unaligned-access -mfloat-abi=hard -Wl,-O1 -Wl,-rpath,/usr/local/Qt-5.5.0/lib
+LFLAGS        = -march=armv7-a -mthumb-interwork -mfloat-abi=hard -mfpu=neon -mtune=cortex-a9 -mno-unaligned-access -mfloat-abi=hard -Wl,-O1 -Wl,-rpath,/usr/local/Qt-5.5.0/lib -Wl,-rpath,./
 LIBS          = $(SUBLIBS) -Wl,-rpath-link=/home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/arm-none-linux-gnueabi/lib -Wl,-rpath-link=/home/d27/mx6q/usr/lib -Wl,-rpath-link=/home/d27/mx6q/lib -L/home/d27/mx6q/usr/lib -L/home/d27/mx6q/lib -L. -lplist -lecolink -lgstapp-0.10 -lffi -lgstpbutils-0.10 -lgstvideo-0.10 -lgstbase-0.10 -lgstaudio-0.10 -lgsttag-0.10 -lcrypto -lfbcontrol -L../socketlib/lib -lHSSocket -lgstreamer-0.10 -lgobject-2.0 -lgmodule-2.0 -lgthread-2.0 -pthread -lglib-2.0 -lxml2 -L/home/wwp/LowDA/sysroots/mx6q/usr/local/Qt-5.5.0/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGLESv2 -lEGL -lGAL -lpthread 
 AR            = /home/wwp/MentorGraphics/Sourcery_CodeBench_for_ARM_Embedded/bin/arm-none-linux-gnueabi-ar cqs
 RANLIB        = 
