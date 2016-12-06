@@ -6,3 +6,5 @@ tags
 *.o
 /obj
 ecolink.bin
+moc_mainwindow.cpp
+ui_mainwindow.h
